@@ -35,13 +35,14 @@
             android:id="@+id/text_input_layout_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:hint="@string/login_password">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,6 +53,7 @@
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/login_login_button"/>
 
 

@@ -3,10 +3,11 @@ package com.dpconde.taskexecutor.mvp.view.login;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.User;
-import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListActivity;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity;
 
 import java.util.List;
 
@@ -14,35 +15,30 @@ import java.util.List;
  * Created by dpconde on 28/9/18.
  */
 
-public class LoginPresenter implements Callback{
+public class LoginPresenter implements LoginCallback {
 
     //Dependencies
     private View view;
-    private UserManager userManager;
     private Context context;
 
+    //Business
+    private UserManager userManagerDB;
 
 
-    public LoginPresenter(View view, UserManager userManager, Context context) {
+    public LoginPresenter(View view, Context context, UserManager userManagerDB) {
         this.view = view;
-        this.userManager = userManager;
         this.context = context;
+        this.userManagerDB = userManagerDB;
     }
 
 
     /**
-     * Start user detail Activity for the selected user
+     * Start Checklist list activity
      * @param user
      */
-    public void onItemClicked(User user) {
-        Intent intent = new Intent(context, TaskListActivity.class);
-        intent.putExtra("userIntent", user.getId());
+    public void startChecklistListActivity(User user) {
+        Intent intent = new Intent(context, ChecklistListActivity.class);
         context.startActivity(intent);
-    }
-
-    @Override
-    public void onRetrievedUsers(List<User> userList) {
-        view.hideProgress();
     }
 
 
@@ -53,9 +49,19 @@ public class LoginPresenter implements Callback{
      */
     public void doLogin(String userCode, String password){
 
+        //Try to do login locally
+        userManagerDB.doLogin(userCode, password, this);
     }
 
+    @Override
+    public void onDoLoginSuccess(User user) {
+        startChecklistListActivity(user);
+    }
 
+    @Override
+    public void onDoLoginFail() {
+
+    }
 
 
     public interface View {
@@ -69,6 +75,21 @@ public class LoginPresenter implements Callback{
          * Hide loading image and show user list
          */
         void hideProgress();
+
+        /**
+         * Show error message. Red Color
+         */
+        void showErrorMessage(String message);
+
+        /**
+         * Show warning message. Yellow Color
+         */
+        void showWarningMessage(String message);
+
+        /**
+         * Show info message. Green Color
+         */
+        void showInfoMessage(String message);
 
     }
 }

@@ -12,10 +12,11 @@ import com.dpconde.taskexecutor.di.component.AppComponent;
 import com.dpconde.taskexecutor.di.component.DaggerLoginComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.LoginModule;
+import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, View.OnClickListener {
+public class LoginActivity extends GeneralActivity implements LoginPresenter.View, View.OnClickListener {
 
     @Inject
     LoginPresenter presenter;
@@ -62,6 +63,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         userCodeField = findViewById(R.id.loginUserCode);
         passwordField = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
+
+        //TODO delete
+        userCodeField.setText("AT015421");
+        passwordField.setText("DP344739id");
     }
 
 
@@ -76,6 +82,20 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 
     }
 
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+
+    }
 
 
     @Override

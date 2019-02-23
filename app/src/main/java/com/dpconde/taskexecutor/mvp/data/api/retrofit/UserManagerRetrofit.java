@@ -1,17 +1,12 @@
 package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
-import android.util.Log;
-
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
-import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
-import com.dpconde.taskexecutor.mvp.data.model.ApiResponse;
 import com.dpconde.taskexecutor.mvp.data.model.User;
+import com.dpconde.taskexecutor.mvp.view.login.LoginCallback;
+import com.google.common.hash.Hashing;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -19,53 +14,56 @@ import retrofit2.Response;
 
 public class UserManagerRetrofit implements UserManager {
 
-    private UsersApi usersApi;
+    private LoginApi loginApi;
+    private UserManager userManagerDB;
 
-    public UserManagerRetrofit(UsersApi usersApi) {
-        this.usersApi = usersApi;
+    public UserManagerRetrofit(LoginApi loginApi) {
+        this.loginApi = loginApi;
+    }
+
+    @Override
+    public void doLogin(String userCode, String password, LoginCallback callback) {
+
+        //TODO Obtener le usuario de la API, si va bien, lo guarda en DB, si no, mostrar error.
+
+        //Encrypt password to save it in the database
+        String encryptedPassword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+
+        //TODO delete
+        User user = new User();
+        user.setPassword(encryptedPassword);
+        user.setUserCode(userCode);
+        user.setEmail("dpconde.me@gmail.com");
+
+        //Save user in DataBase
+        User userCreated = userManagerDB.createUser(user);
+
+        callback.onDoLoginSuccess(userCreated);
+
     }
 
     @Override
     public boolean deleteUser(String userId) {
-        //TODO
         return false;
     }
 
     @Override
-    public void getAllUsers(final Callback callback) {
-        /*
-        usersApi.getUsers(NUM_RESULTS, SEED).enqueue(new retrofit2.Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                List<User> userList = response.body().getResults();
-                if(callback!=null){
-                    callback.onRetrievedUsers(userList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
-                Log.e("RETROFIT", t.toString());
-            }
-        });
-        */
+    public void getAllUsers(final ChecklistListCallback checklistListCallback) {
     }
 
     @Override
     public User getUserById(Long userId) {
-        //TODO
         return null;
     }
 
     @Override
     public User createUser(User user) {
-        //TODO
         return null;
     }
 
-    @Override
-    public User doLogin(String userCode, String password) {
-        return null;
+    public void setUserManagerDB(UserManager userManagerDB) {
+        this.userManagerDB = userManagerDB;
     }
-
 }

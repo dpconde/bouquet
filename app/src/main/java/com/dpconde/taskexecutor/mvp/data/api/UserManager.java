@@ -1,8 +1,8 @@
 package com.dpconde.taskexecutor.mvp.data.api;
 
 import com.dpconde.taskexecutor.mvp.data.model.User;
-
-import java.util.List;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
+import com.dpconde.taskexecutor.mvp.view.login.LoginCallback;
 
 /**
  * Created by dpconde on 13/02/2019.
@@ -21,9 +21,9 @@ public interface UserManager {
 
     /**
      * Get all users
-     * @param callback
+     * @param checklistListCallback
      */
-    void getAllUsers(Callback callback);
+    void getAllUsers(ChecklistListCallback checklistListCallback);
 
 
     /**
@@ -46,9 +46,8 @@ public interface UserManager {
      * Get the user by its userCode and password
      * @param userCode
      * @param password
-     * @return
      */
-    User doLogin(String userCode, String password);
+    void doLogin(String userCode, String password, LoginCallback callback);
 
 
 }

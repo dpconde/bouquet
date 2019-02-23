@@ -3,7 +3,7 @@ package com.dpconde.taskexecutor.mvp.data.api.jsonreader;
 import android.content.Context;
 
 import com.dpconde.taskexecutor.R;
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
 import com.google.gson.Gson;
@@ -28,7 +28,7 @@ public class TestDataManagerJson implements TestDataManager {
 
 
     @Override
-    public void loadTasks(Callback callback) {
+    public void loadTasks(ChecklistListCallback checklistListCallback) {
         try {
             InputStream inputStream = context.getResources().openRawResource(R.raw.login_response_ok);
             byte[] bytes = new byte[inputStream.available()];
@@ -38,7 +38,7 @@ public class TestDataManagerJson implements TestDataManager {
             Task myModel = new Gson().fromJson(json, Task.class);
 
             //TODO
-            //use callback
+            //use checklistListCallback
 
         } catch (IOException e) {
 

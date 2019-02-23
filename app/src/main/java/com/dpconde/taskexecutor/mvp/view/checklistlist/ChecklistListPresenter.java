@@ -3,9 +3,8 @@ package com.dpconde.taskexecutor.mvp.view.checklistlist;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
-import com.dpconde.taskexecutor.mvp.data.model.User;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListActivity;
 
 import java.util.List;
@@ -14,17 +13,12 @@ import java.util.List;
  * Created by dpconde on 28/9/18.
  */
 
-public class ChecklistListPresenter implements Callback{
+public class ChecklistListPresenter implements ChecklistListCallback {
 
     //Dependencies
     private View view;
     private TestDataManager userDataManager;
     private Context context;
-
-    //Page management
-    private final int PAGE_SIZE = 10;
-    private int currentPage = 1;
-    private int numMaxPages;
 
 
     public ChecklistListPresenter(View view, TestDataManager userDataManager, Context context) {
@@ -44,53 +38,22 @@ public class ChecklistListPresenter implements Callback{
 
     /**
      * Start user detail Activity for the selected user
-     * @param user
+     * @param checklist
      */
-    public void onItemClicked(User user) {
+    public void onItemClicked(Checklist checklist) {
         Intent intent = new Intent(context, TaskListActivity.class);
-        intent.putExtra("userIntent", user.getId());
+        intent.putExtra("checklistIntent", checklist.getId());
         context.startActivity(intent);
     }
 
     @Override
-    public void onRetrievedUsers(List<User> userList) {
-        view.refreshUserList(userList);
+    public void onRetrievedChecklist(List<Checklist> checklistList) {
+        view.refreshChecklistList(checklistList);
         view.hideProgress();
     }
 
 
-    /**
-     * Load next page users
-     */
-    public void loadNextUsers(){
-        currentPage++;
-        loadData();
-    }
 
-
-    /**
-     * Load previous page users
-     */
-    public void loadPrevUsers(){
-        currentPage--;
-        loadData();
-    }
-
-    /**
-     * Check current page in order to disable/enable previous and next page buttons
-     */
-    public void checkCurrentPage(){
-        if(currentPage==1){
-            view.enablePrevButton(false);
-            view.enableNextButton(true);
-        }else if(currentPage==numMaxPages){
-            view.enableNextButton(false);
-            view.enablePrevButton(true);
-        }else{
-            view.enablePrevButton(true);
-            view.enableNextButton(true);
-        }
-    }
 
 
     public interface View {
@@ -107,20 +70,8 @@ public class ChecklistListPresenter implements Callback{
 
         /**
          * Refresh the user list with the given user list
-         * @param userList
+         * @param checklistList
          */
-        void refreshUserList(List<User> userList);
-
-        /**
-         * Enable/disable previous page button
-         * @param enable
-         */
-        void enablePrevButton(boolean enable);
-
-        /**
-         * Enable/disable next page button
-         * @param enable
-         */
-        void enableNextButton(boolean enable);
+        void refreshChecklistList(List<Checklist> checklistList);
     }
 }

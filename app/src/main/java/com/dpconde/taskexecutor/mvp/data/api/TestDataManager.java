@@ -1,9 +1,7 @@
 package com.dpconde.taskexecutor.mvp.data.api;
 
 import com.dpconde.taskexecutor.mvp.data.model.Task;
-import com.dpconde.taskexecutor.mvp.data.model.User;
-
-import java.util.List;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -14,9 +12,9 @@ public interface TestDataManager {
 
     /**
      * Load tasks
-     * @param callback
+     * @param checklistListCallback
      */
-    void loadTasks(Callback callback);
+    void loadTasks(ChecklistListCallback checklistListCallback);
 
     /**
      * Delete task

@@ -1,15 +1,9 @@
 package com.dpconde.taskexecutor.mvp.data.api.greendao;
 
-import android.os.AsyncTask;
-
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
-import com.dpconde.taskexecutor.mvp.data.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -27,7 +21,7 @@ public class TestDataManagerGreenDAO implements TestDataManager {
 
 
     @Override
-    public void loadTasks(Callback callback) {
+    public void loadTasks(ChecklistListCallback checklistListCallback) {
 
     }
 

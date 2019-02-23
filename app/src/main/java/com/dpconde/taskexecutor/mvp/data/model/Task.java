@@ -23,8 +23,11 @@ public class Task implements Parcelable {
     private String type;
     private String description;
     private Date executionDate;
-    private String executionstatus;
+    private String executionStatus;
     private String syncStatus;
+    private long checklistId;
+    private long parentTaskId;
+    private int order;
 
 
     @ToOne(joinProperty = "executorId")
@@ -35,15 +38,19 @@ public class Task implements Parcelable {
     protected Task(Parcel in) {
     }
 
-    @Generated(hash = 169307857)
+    @Generated(hash = 524954813)
     public Task(long id, String type, String description, Date executionDate,
-            String executionstatus, String syncStatus, Long executorId) {
+            String executionStatus, String syncStatus, long checklistId, long parentTaskId,
+            int order, Long executorId) {
         this.id = id;
         this.type = type;
         this.description = description;
         this.executionDate = executionDate;
-        this.executionstatus = executionstatus;
+        this.executionStatus = executionStatus;
         this.syncStatus = syncStatus;
+        this.checklistId = checklistId;
+        this.parentTaskId = parentTaskId;
+        this.order = order;
         this.executorId = executorId;
     }
 
@@ -92,13 +99,7 @@ public class Task implements Parcelable {
         this.executionDate = executionDate;
     }
 
-    public String getExecutionstatus() {
-        return this.executionstatus;
-    }
 
-    public void setExecutionstatus(String executionstatus) {
-        this.executionstatus = executionstatus;
-    }
 
     public String getSyncStatus() {
         return this.syncStatus;
@@ -179,6 +180,38 @@ public class Task implements Parcelable {
             throw new DaoException("Entity is detached from DAO context");
         }
         myDao.update(this);
+    }
+
+    public String getExecutionStatus() {
+        return this.executionStatus;
+    }
+
+    public void setExecutionStatus(String executionStatus) {
+        this.executionStatus = executionStatus;
+    }
+
+    public long getChecklistId() {
+        return this.checklistId;
+    }
+
+    public void setChecklistId(long checklistId) {
+        this.checklistId = checklistId;
+    }
+
+    public long getParentTaskId() {
+        return this.parentTaskId;
+    }
+
+    public void setParentTaskId(long parentTaskId) {
+        this.parentTaskId = parentTaskId;
+    }
+
+    public int getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     /** called by internal mechanisms, do not call yourself. */

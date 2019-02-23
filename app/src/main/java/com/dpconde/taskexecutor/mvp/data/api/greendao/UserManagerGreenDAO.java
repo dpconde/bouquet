@@ -1,10 +1,12 @@
 package com.dpconde.taskexecutor.mvp.data.api.greendao;
 
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.UserManagerRetrofit;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 import com.dpconde.taskexecutor.mvp.data.model.UserDao;
+import com.dpconde.taskexecutor.mvp.view.login.LoginCallback;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
@@ -17,12 +19,13 @@ import java.util.List;
 public class UserManagerGreenDAO implements UserManager {
 
 
-    DaoSession daoSession; 
+    private DaoSession daoSession;
+    private UserManager userManagerAPI;
 
-    public UserManagerGreenDAO(DaoSession daoSession) {
+    public UserManagerGreenDAO(DaoSession daoSession, UserManager userManagerAPI) {
         this.daoSession = daoSession;
+        this.userManagerAPI = userManagerAPI;
     }
-
 
 
     @Override
@@ -31,8 +34,7 @@ public class UserManagerGreenDAO implements UserManager {
     }
 
     @Override
-    public void getAllUsers(Callback callback) {
-
+    public void getAllUsers(ChecklistListCallback checklistListCallback) {
     }
 
     @Override
@@ -43,30 +45,40 @@ public class UserManagerGreenDAO implements UserManager {
 
     @Override
     public User createUser(User user) {
-        return null;
+        Long userId = daoSession.insert(user);
+        user.setId(userId);
+
+        return user;
     }
 
 
     @Override
-    public User doLogin(String userCode, String password) {
+    public void doLogin(String userCode, String password, LoginCallback callback) {
 
         //The user must be persisted in order to do login
         User user = this.getUserByUserCode(userCode);
 
         if(user == null){
-            return null;
+
+            //User not found, we call API to get user
+            ((UserManagerRetrofit)userManagerAPI).setUserManagerDB(this);
+            userManagerAPI.doLogin(userCode, password, callback);
+
+        }else{
+
+            //Encrypt password to compare it with the database
+            String encryptedPassword = Hashing.sha256()
+                    .hashString(password, StandardCharsets.UTF_8)
+                    .toString();
+
+            //If password matches, then login success
+            if(user.getPassword().equals(encryptedPassword)){
+                callback.onDoLoginSuccess(user);
+            }else{
+                callback.onDoLoginFail(); //TODO add message
+            }
+
         }
-
-        //Encrypt password to compare it with the database
-        String encryptedPassword = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();
-
-        if(user.getPassword().equals(encryptedPassword)){
-            return user;
-        }
-
-        return null;
     }
 
     private User getUserByUserCode(String userCode){

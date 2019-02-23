@@ -1,0 +1,12 @@
+[
+  {"id":0,"userCode":"AT0154210","email":"user0@gmail.com","password":"password0"},
+  {"id":1,"userCode":"AT0154211","email":"user1@gmail.com","password":"password1"},
+  {"id":2,"userCode":"AT0154212","email":"user2@gmail.com","password":"password2"},
+  {"id":3,"userCode":"AT0154213","email":"user3@gmail.com","password":"password3"},
+  {"id":4,"userCode":"AT0154214","email":"user4@gmail.com","password":"password4"},
+  {"id":5,"userCode":"AT0154215","email":"user5@gmail.com","password":"password5"},
+  {"id":6,"userCode":"AT0154216","email":"user6@gmail.com","password":"password6"},
+  {"id":7,"userCode":"AT0154217","email":"user7@gmail.com","password":"password7"},
+  {"id":8,"userCode":"AT0154218","email":"user8@gmail.com","password":"password8"},
+  {"id":9,"userCode":"AT0154219","email":"user9@gmail.com","password":"password9"}
+]

@@ -5,9 +5,11 @@ import com.dpconde.taskexecutor.di.module.datasource.RetrofitModule;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.api.greendao.TestDataManagerGreenDAO;
+import com.dpconde.taskexecutor.mvp.data.api.greendao.UserManagerGreenDAO;
 import com.dpconde.taskexecutor.mvp.data.api.jsonreader.UserManagerJson;
 import com.dpconde.taskexecutor.mvp.data.api.retrofit.LoginApi;
 import com.dpconde.taskexecutor.mvp.data.api.retrofit.TestDataManagerRetrofit;
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.UserManagerRetrofit;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
 
 import javax.inject.Named;
@@ -22,22 +24,22 @@ import dagger.Provides;
  */
 
 @Module(includes = {RetrofitModule.class, GreenDAOModule.class})
-public class TaskModule {
+public class UserModule {
 
 
     @Provides
-    @Named("local")
+    @Named("db")
     @Singleton
-    TestDataManager provideUserDataManagerLocal(@Named("online") TestDataManager taskDataManager, DaoSession daoSession){
-        return new TestDataManagerGreenDAO(taskDataManager, daoSession);
+    UserManager provideUserManagerDB(@Named("api") UserManager userManagerAPI, DaoSession daoSession){
+        return new UserManagerGreenDAO(daoSession, userManagerAPI);
     }
 
 
     @Provides
-    @Named("online")
+    @Named("api")
     @Singleton
-    TestDataManager provideUserDataManagerOnline(LoginApi loginApi){
-        return new TestDataManagerRetrofit(loginApi);
+    UserManager provideUserManagerAPI(LoginApi loginApi){
+        return new UserManagerRetrofit(loginApi);
     }
 
 

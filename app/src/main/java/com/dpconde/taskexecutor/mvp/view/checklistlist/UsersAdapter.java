@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dpconde.taskexecutor.R;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +21,10 @@ import java.util.List;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CategoryViewHolder> {
 
     private ChecklistListPresenter presenter;
-    private List<User> userList;
+    private List<Checklist> checklistList;
 
-    public UsersAdapter(ChecklistListPresenter presenter, List<User> userList) {
-        this.userList = userList;
+    public UsersAdapter(ChecklistListPresenter presenter, List<Checklist> checklistList) {
+        this.checklistList = checklistList;
         this.presenter = presenter;
     }
 
@@ -37,7 +38,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CategoryView
     public void onBindViewHolder(UsersAdapter.CategoryViewHolder holder, final int position) {
 
         //Get selected user from list
-        final User user = userList.get(position);
+        final Checklist checklist = checklistList.get(position);
 
         //Bind data
        // holder.username.setText(user.getName().toString());
@@ -48,14 +49,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CategoryView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onItemClicked(user);
+                presenter.onItemClicked(checklist);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return checklistList.size();
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {

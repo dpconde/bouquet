@@ -14,6 +14,7 @@ import com.dpconde.taskexecutor.di.component.AppComponent;
 import com.dpconde.taskexecutor.di.component.DaggerChecklistListComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.ChecklistListModule;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
     RelativeLayout progressBarLayout;
 
     UsersAdapter adapter;
-    List<User> userList = new ArrayList<>();
+    List<Checklist> userList = new ArrayList<>();
 
 
     @Override
@@ -93,8 +94,6 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
     public void showProgress() {
         progressBarLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
-        enableNextButton(false);
-        enablePrevButton(false);
     }
 
 
@@ -102,42 +101,19 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
     public void hideProgress() {
         progressBarLayout.setVisibility(View.INVISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
-        presenter.checkCurrentPage();
     }
 
 
     @Override
-    public void refreshUserList(List<User> userList) {
+    public void refreshChecklistList(List<Checklist> checklistList) {
         this.userList.clear();
-        this.userList.addAll(userList);
+        this.userList.addAll(checklistList);
         adapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void enablePrevButton(boolean enable) {
-        prevButton.setEnabled(enable);
-    }
-
-
-    @Override
-    public void enableNextButton(boolean enable) {
-        nextButton.setEnabled(enable);
     }
 
 
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.prevPageButton:
-                presenter.loadPrevUsers();
-                break;
-            case R.id.nextPageButton:
-                presenter.loadNextUsers();
-                break;
-            default:
-                break;
-        }
     }
 }

@@ -1,17 +1,8 @@
 package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
-import android.util.Log;
-
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
-import com.dpconde.taskexecutor.mvp.data.model.User;
-import com.dpconde.taskexecutor.mvp.data.model.ApiResponse;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -19,17 +10,17 @@ import retrofit2.Response;
 
 public class TestDataManagerRetrofit implements TestDataManager {
 
-    private UsersApi usersApi;
+    private LoginApi loginApi;
 
     private final int NUM_RESULTS = 100;
     private final String SEED = "xmoba";
 
-    public TestDataManagerRetrofit(UsersApi usersApi) {
-        this.usersApi = usersApi;
+    public TestDataManagerRetrofit(LoginApi loginApi) {
+        this.loginApi = loginApi;
     }
 
     @Override
-    public void loadTasks(Callback callback) {
+    public void loadTasks(ChecklistListCallback checklistListCallback) {
 
     }
 
@@ -57,9 +48,9 @@ public class TestDataManagerRetrofit implements TestDataManager {
     }
 
     @Override
-    public void getAllUsers(final Callback callback) {
+    public void getAllUsers(final ChecklistListCallback callback) {
 
-        usersApi.getUsers(NUM_RESULTS, SEED).enqueue(new retrofit2.Callback<ApiResponse>() {
+        loginApi.getUsers(NUM_RESULTS, SEED).enqueue(new retrofit2.ChecklistListCallback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 List<User> userList = response.body().getResults();
@@ -113,7 +104,7 @@ public class TestDataManagerRetrofit implements TestDataManager {
     }
 
     @Override
-    public void loadData(Callback callback, int pageNumber, int resultsPerPage) {
+    public void loadData(ChecklistListCallback callback, int pageNumber, int resultsPerPage) {
         //TODO
     }*/
 

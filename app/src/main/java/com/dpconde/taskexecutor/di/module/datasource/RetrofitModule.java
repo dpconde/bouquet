@@ -3,9 +3,11 @@ package com.dpconde.taskexecutor.di.module.datasource;
 import dagger.Module;
 import dagger.Provides;
 
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.UsersApi;
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.LoginApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import javax.inject.Named;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,20 +19,66 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
+    /**
+     * **********************************************************************
+     * Login providers
+     * **********************************************************************
+     */
+
     @Provides
-    public UsersApi randomUsersApi(Retrofit retrofit){
-        return retrofit.create(UsersApi.class);
+    public LoginApi loginAPI(@Named("login") Retrofit retrofit){
+        return retrofit.create(LoginApi.class);
     }
 
-
     @Provides
-    public Retrofit retrofit(GsonConverterFactory gsonConverterFactory){
+    @Named("login")
+    public Retrofit retrofitLogin(GsonConverterFactory gsonConverterFactory){
         return new Retrofit.Builder()
-                .baseUrl("https://randomuser.me/")
+                .baseUrl("https://intranet.idiada.com/verema-ws/service/casWS/")
                 .addConverterFactory(gsonConverterFactory)
                 .build();
     }
 
+    /**
+     * **********************************************************************
+     */
+
+
+
+    /**
+     * **********************************************************************
+     * Task providers
+     * **********************************************************************
+     */
+
+    @Provides
+    @Named("tasks")
+    public LoginApi tasksAPI(@Named("tasks")Retrofit retrofit){
+        return retrofit.create(LoginApi.class);
+    }
+
+
+    @Provides
+    @Named("tasks")
+    public Retrofit retrofitTasks(GsonConverterFactory gsonConverterFactory){
+        return new Retrofit.Builder()
+                .baseUrl("https://intranet.idiada.com/verema-ws/service/casWS/")
+                .addConverterFactory(gsonConverterFactory)
+                .build();
+    }
+
+    /**
+     * **********************************************************************
+     */
+
+
+
+
+    /**
+     * **********************************************************************
+     * Common providers
+     * **********************************************************************
+     */
 
     @Provides
     public Gson gson(){
@@ -46,4 +94,8 @@ public class RetrofitModule {
     public GsonConverterFactory gsonConverterFactory(Gson gson){
         return GsonConverterFactory.create(gson);
     }
+
+    /**
+     * **********************************************************************
+     */
 }

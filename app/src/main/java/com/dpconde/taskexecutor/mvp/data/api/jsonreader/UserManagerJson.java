@@ -1,11 +1,9 @@
 package com.dpconde.taskexecutor.mvp.data.api.jsonreader;
 
-import com.dpconde.taskexecutor.mvp.data.api.Callback;
-import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.model.User;
-
-import java.util.List;
+import com.dpconde.taskexecutor.mvp.view.login.LoginCallback;
 
 /**
  * Created by dpconde on 13/02/2019.
@@ -20,7 +18,7 @@ public class UserManagerJson implements UserManager {
     }
 
     @Override
-    public void getAllUsers(Callback callback) {
+    public void getAllUsers(ChecklistListCallback checklistListCallback) {
 
     }
 
@@ -35,7 +33,6 @@ public class UserManagerJson implements UserManager {
     }
 
     @Override
-    public User doLogin(String userCode, String password) {
-        return null;
+    public void doLogin(String userCode, String password, LoginCallback callback) {
     }
 }
