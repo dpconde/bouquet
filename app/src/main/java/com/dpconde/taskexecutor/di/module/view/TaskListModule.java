@@ -32,7 +32,7 @@ public class TaskListModule {
 
     @Provides
     public UserDetailPresenter providePresenter(UserDetailPresenter.View categoryView,
-                                                @Named("local") TestDataManager userDataManager,
+                                                @Named("db") TestDataManager userDataManager,
                                                 Context context) {
         return new UserDetailPresenter(categoryView, userDataManager, context);
     }

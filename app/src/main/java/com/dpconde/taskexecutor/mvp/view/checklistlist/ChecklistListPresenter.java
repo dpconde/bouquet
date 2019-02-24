@@ -17,13 +17,15 @@ public class ChecklistListPresenter implements ChecklistListCallback {
 
     //Dependencies
     private View view;
-    private TestDataManager testDataManager;
+    private TestDataManager testDataManagerDB;
+    private TestDataManager testDataManagerJson;
     private Context context;
 
 
-    public ChecklistListPresenter(View view, TestDataManager testDataManager, Context context) {
+    public ChecklistListPresenter(View view, TestDataManager testDataManagerDB, TestDataManager testDataManagerJson, Context context) {
         this.view = view;
-        this.testDataManager = testDataManager;
+        this.testDataManagerDB = testDataManagerDB;
+        this.testDataManagerJson = testDataManagerJson;
         this.context = context;
     }
 
@@ -32,7 +34,7 @@ public class ChecklistListPresenter implements ChecklistListCallback {
      */
     public void loadData(){
         view.showProgress();
-        testDataManager.loadChecklists(this);
+        testDataManagerDB.loadChecklists(this);
     }
 
     /**
@@ -49,6 +51,10 @@ public class ChecklistListPresenter implements ChecklistListCallback {
     public void onRetrievedChecklist(List<Checklist> checklistList) {
         view.refreshChecklistList(checklistList);
         view.hideProgress();
+    }
+
+    public void readChecklist(){
+        testDataManagerJson.loadTasks(this);
     }
 
 

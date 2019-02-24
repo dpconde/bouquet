@@ -19,7 +19,6 @@ public class UserManagerJson implements UserManager {
 
     @Override
     public void getAllUsers(ChecklistListCallback checklistListCallback) {
-
     }
 
     @Override

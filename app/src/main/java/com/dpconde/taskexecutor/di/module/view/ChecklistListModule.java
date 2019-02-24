@@ -32,9 +32,10 @@ public class ChecklistListModule {
 
     @Provides
     public ChecklistListPresenter providePresenter(ChecklistListPresenter.View categoryView,
-                                                   @Named("local") TestDataManager userDataManager,
+                                                   @Named("db") TestDataManager testDataManagerDB,
+                                                   @Named("json") TestDataManager testDataManagerJson,
                                                    Context context) {
-        return new ChecklistListPresenter(categoryView, userDataManager, context);
+        return new ChecklistListPresenter(categoryView, testDataManagerDB, testDataManagerJson, context);
     }
 
 }

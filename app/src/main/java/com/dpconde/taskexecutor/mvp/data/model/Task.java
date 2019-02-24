@@ -240,4 +240,6 @@ public class Task implements Parcelable {
     private transient TaskDao myDao;
     @Generated(hash = 719827570)
     private transient Long executor__resolvedKey;
+
+
 }

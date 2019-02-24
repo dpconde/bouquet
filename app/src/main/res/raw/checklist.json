@@ -1,0 +1,119 @@
+{
+  "id": 129343,
+  "description": "This is a dummy description for the Checklist",
+  "projectName": "19BRK_MAHIDRA_MOJACAR",
+  "workingOrder": "BRK190332",
+  "customer": "Mahindra",
+  "samples": "sample1#sample2#sample3#sample4",
+  "tasks": [
+    {
+      "id": 456342,
+      "type": 1,
+      "name":"Task type general name",
+      "description": "Task type general description",
+      "value":"",
+      "parentTask": null,
+      "data":{
+        
+      }
+    },
+    {
+      "id": 456343,
+      "type": 2,
+      "name":"Task type container name",
+      "description": "Task type container description",
+      "parentTask": null,
+      "data":{
+        
+      }
+    },
+    {
+      "id": 456344,
+      "type": 3,
+      "name":"Task type checklist name",
+      "description": "Task type checklist description",
+      "parentTask": 456343,
+      "data":{
+        "checklistTasks":[
+            {
+                "id": 1,
+                "title": "Checklist task 1",
+                "description": "Checklist task 1 Description",
+                "remarks": "Checklist task 1 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 2,
+                "title": "Checklist task 2",
+                "description": "Checklist task 2 Description",
+                "remarks": "Checklist task 2 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 3,
+                "title": "Checklist task 3",
+                "description": "Checklist task 3 Description",
+                "remarks": "Checklist task 3 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 4,
+                "title": "Checklist task 4",
+                "description": "Checklist task 4 Description",
+                "remarks": "Checklist task 4 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 5,
+                "title": "Checklist task 5",
+                "description": "Checklist task 5 Description",
+                "remarks": "Checklist task 5 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 6,
+                "title": "Checklist task 6",
+                "description": "Checklist task 6 Description",
+                "remarks": "Checklist task 6 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            },
+            {
+                "id": 7,
+                "title": "Checklist task 7",
+                "description": "Checklist task 7 Description",
+                "remarks": "Checklist task 7 Remarks",
+                "executionTime": "",
+                "executionUser": null
+            }
+        ]
+      }
+    },
+    {
+        "id": 456345,
+        "type": 1,
+        "name":"Task type general name",
+        "description": "Task type general description",
+        "parentTask": 456343,
+        "data":{
+
+        }
+    },
+    {
+        "id": 456346,
+        "type": 4,
+        "name":"Task type camera name",
+        "description": "Task type camera description",
+        "parentTask": null,
+        "data":{
+          "engineeringComment" : "This is an engineering comment",
+          "technicianComment" : ""
+        }
+    }
+  ]
+}

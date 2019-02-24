@@ -151,6 +151,9 @@ public class ChecklistListActivity extends GeneralActivity implements ChecklistL
         if (requestCode == QR_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 String result = data.getStringExtra("result");
+
+                presenter.readChecklist();
+
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }
             if (resultCode == Activity.RESULT_CANCELED) {

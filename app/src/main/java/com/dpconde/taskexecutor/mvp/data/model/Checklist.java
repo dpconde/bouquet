@@ -26,6 +26,7 @@ public class Checklist implements Parcelable {
     private String projectName;
     private String samples;
     private String workingOrder;
+    private String customer;
 
     @ToMany(referencedJoinProperty = "checklistId")
     @OrderBy("order ASC")
@@ -39,14 +40,15 @@ public class Checklist implements Parcelable {
 
 
 
-    @Generated(hash = 893310967)
-    public Checklist(Long id, String description, String projectName,
-            String samples, String workingOrder) {
+    @Generated(hash = 920025163)
+    public Checklist(Long id, String description, String projectName, String samples,
+            String workingOrder, String customer) {
         this.id = id;
         this.description = description;
         this.projectName = projectName;
         this.samples = samples;
         this.workingOrder = workingOrder;
+        this.customer = customer;
     }
 
 
@@ -203,15 +205,6 @@ public class Checklist implements Parcelable {
 
 
 
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2049759880)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getChecklistDao() : null;
-    }
-
-
-
     public static final Creator<Checklist> CREATOR = new Creator<Checklist>() {
         @Override
         public Checklist createFromParcel(Parcel in) {
@@ -229,4 +222,29 @@ public class Checklist implements Parcelable {
     /** Used for active entity operations. */
     @Generated(hash = 1073349481)
     private transient ChecklistDao myDao;
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+
+
+    public String getCustomer() {
+        return this.customer;
+    }
+
+
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2049759880)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getChecklistDao() : null;
+    }
 }
