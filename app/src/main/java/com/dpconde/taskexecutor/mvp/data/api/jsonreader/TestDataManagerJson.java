@@ -59,4 +59,9 @@ public class TestDataManagerJson implements TestDataManager {
     public boolean pushTask(Task task) {
         return false;
     }
+
+    @Override
+    public void loadChecklists(ChecklistListCallback checklistListCallback) {
+
+    }
 }

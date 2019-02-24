@@ -1,6 +1,5 @@
 package com.dpconde.taskexecutor.mvp.view.tasklist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +14,13 @@ import com.dpconde.taskexecutor.di.component.DaggerTaskListComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.TaskListModule;
 import com.dpconde.taskexecutor.mvp.data.model.User;
-import com.dpconde.taskexecutor.mvp.view.tasklist.UserDetailPresenter;
-import com.squareup.picasso.Picasso;
+
 
 import javax.inject.Inject;
 
-public class TaskListActivity extends AppCompatActivity  implements UserDetailPresenter.View, View.OnClickListener {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class TaskListActivity extends AppCompatActivity implements UserDetailPresenter.View, View.OnClickListener {
 
     @Inject
     UserDetailPresenter presenter;

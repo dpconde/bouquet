@@ -1,23 +1,24 @@
 package com.dpconde.taskexecutor.mvp.view;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.dpconde.taskexecutor.R;
-import com.dpconde.taskexecutor.UserListApplication;
-import com.dpconde.taskexecutor.di.component.AppComponent;
-import com.dpconde.taskexecutor.di.component.DaggerLoginComponent;
-import com.dpconde.taskexecutor.di.module.ContextModule;
-import com.dpconde.taskexecutor.di.module.view.LoginModule;
-import com.dpconde.taskexecutor.mvp.view.login.LoginPresenter;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import javax.inject.Inject;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-public class GeneralActivity extends AppCompatActivity{
 
+public class GeneralActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,33 @@ public class GeneralActivity extends AppCompatActivity{
         super.onResume();
     }
 
-    public void showErrorMessage(){}
+    protected void addDrawer(){
+
+        //Get toolbar component
+        toolbar = findViewById(R.id.my_toolbar);
+
+        //if you want to update the items at a later time it is recommended to keep it in a variable
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Elem1");
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Elem2");
+
+        //create the drawer and remember the `Drawer` result object
+        Drawer result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .addDrawerItems(
+                        item1,
+                        new DividerDrawerItem(),
+                        item2,
+                        new SecondaryDrawerItem().withName("Elem3")
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
+                        return false;
+                    }
+                }).build();
+    }
+
 
 }

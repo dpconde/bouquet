@@ -39,6 +39,11 @@ public class TestDataManagerRetrofit implements TestDataManager {
         return false;
     }
 
+    @Override
+    public void loadChecklists(ChecklistListCallback checklistListCallback) {
+
+    }
+
 
     /*
     @Override

@@ -28,7 +28,7 @@ public class TaskModule {
     @Provides
     @Named("local")
     @Singleton
-    TestDataManager provideUserDataManagerLocal(@Named("online") TestDataManager taskDataManager, DaoSession daoSession){
+    TestDataManager provideTestDataManagerLocal(@Named("online") TestDataManager taskDataManager, DaoSession daoSession){
         return new TestDataManagerGreenDAO(taskDataManager, daoSession);
     }
 
@@ -36,7 +36,7 @@ public class TaskModule {
     @Provides
     @Named("online")
     @Singleton
-    TestDataManager provideUserDataManagerOnline(LoginApi loginApi){
+    TestDataManager provideTestDataManagerOnline(LoginApi loginApi){
         return new TestDataManagerRetrofit(loginApi);
     }
 
@@ -44,7 +44,7 @@ public class TaskModule {
     @Provides
     @Named("json")
     @Singleton
-    UserManager provideUserManagerJSON(){
+    UserManager provideTestManagerJSON(){
         return new UserManagerJson();
     }
 

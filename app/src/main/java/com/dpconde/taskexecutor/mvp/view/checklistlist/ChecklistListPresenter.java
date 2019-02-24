@@ -17,13 +17,13 @@ public class ChecklistListPresenter implements ChecklistListCallback {
 
     //Dependencies
     private View view;
-    private TestDataManager userDataManager;
+    private TestDataManager testDataManager;
     private Context context;
 
 
-    public ChecklistListPresenter(View view, TestDataManager userDataManager, Context context) {
+    public ChecklistListPresenter(View view, TestDataManager testDataManager, Context context) {
         this.view = view;
-        this.userDataManager = userDataManager;
+        this.testDataManager = testDataManager;
         this.context = context;
     }
 
@@ -32,8 +32,7 @@ public class ChecklistListPresenter implements ChecklistListCallback {
      */
     public void loadData(){
         view.showProgress();
-       // userDataManager.loadData(this, currentPage, PAGE_SIZE);
-       // numMaxPages = (int) Math.ceil(userDataManager.countTotalResults()/PAGE_SIZE);
+        testDataManager.loadChecklists(this);
     }
 
     /**

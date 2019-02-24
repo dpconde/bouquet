@@ -40,6 +40,13 @@ public interface TestDataManager {
     boolean pushTask(Task task);
 
 
+    /**
+     * Load checklists
+     * @param checklistListCallback
+     */
+    void loadChecklists(ChecklistListCallback checklistListCallback);
+
+
 
 
 }

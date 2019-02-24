@@ -1,8 +1,7 @@
 package com.dpconde.taskexecutor.mvp.view.login;
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +12,7 @@ import com.dpconde.taskexecutor.di.component.DaggerLoginComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.LoginModule;
 import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
+import com.google.android.material.textfield.TextInputEditText;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,6 @@ public class LoginActivity extends GeneralActivity implements LoginPresenter.Vie
     private TextInputEditText userCodeField;
     private TextInputEditText passwordField;
     private Button loginButton;
-
 
 
     @Override

@@ -1,12 +1,15 @@
 package com.dpconde.taskexecutor.mvp.view.checklistlist;
 
-import android.support.v7.app.AppCompatActivity;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.dpconde.taskexecutor.R;
 import com.dpconde.taskexecutor.UserListApplication;
@@ -15,36 +18,47 @@ import com.dpconde.taskexecutor.di.component.DaggerChecklistListComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.ChecklistListModule;
 import com.dpconde.taskexecutor.mvp.data.model.Checklist;
-import com.dpconde.taskexecutor.mvp.data.model.User;
+import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
+import com.dpconde.taskexecutor.mvp.view.checklistlist.qrreader.ChecklistListQRReaderActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class ChecklistListActivity extends AppCompatActivity implements ChecklistListPresenter.View, View.OnClickListener {
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class ChecklistListActivity extends GeneralActivity implements ChecklistListPresenter.View, View.OnClickListener {
+
+    private final static int QR_REQUEST_CODE = 1;
 
     @Inject
     ChecklistListPresenter presenter;
 
     // View components
     RecyclerView recyclerView;
-    Button prevButton;
-    Button nextButton;
     RelativeLayout progressBarLayout;
+    FloatingActionButton addChecklistButton;
 
-    UsersAdapter adapter;
-    List<Checklist> userList = new ArrayList<>();
+    ChecklistListAdapter adapter;
+    List<Checklist> checklistList = new ArrayList<>();
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupComponent(UserListApplication.getApp().component());
-        setContentView(R.layout.activity_user_list);
+        setContentView(R.layout.activity_checklist_list);
         initViews();
         setupRecyclerView();
+        requestPermissions();
+
     }
+
 
     @Override
     protected void onResume(){
@@ -71,12 +85,15 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
      * Instantiate view components
      */
     private void initViews() {
+        //Add drawer
+        addDrawer();
+
+        //Setup view components
         recyclerView = findViewById(R.id.recyclerView);
-        nextButton = findViewById(R.id.nextPageButton);
-        nextButton.setOnClickListener(this);
-        prevButton = findViewById(R.id.prevPageButton);
-        prevButton.setOnClickListener(this);
         progressBarLayout = findViewById(R.id.progressBarLayout);
+        addChecklistButton = findViewById(R.id.addChecklistButton);
+        addChecklistButton.setOnClickListener(this);
+
     }
 
 
@@ -86,9 +103,18 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
     private void setupRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new UsersAdapter(presenter, userList);
+        adapter = new ChecklistListAdapter(presenter, checklistList);
         recyclerView.setAdapter(adapter);
     }
+
+
+    @Override
+    public void refreshChecklistList(List<Checklist> checklistList) {
+        this.checklistList.clear();
+        this.checklistList.addAll(checklistList);
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void showProgress() {
@@ -105,15 +131,40 @@ public class ChecklistListActivity extends AppCompatActivity implements Checklis
 
 
     @Override
-    public void refreshChecklistList(List<Checklist> checklistList) {
-        this.userList.clear();
-        this.userList.addAll(checklistList);
-        adapter.notifyDataSetChanged();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.addChecklistButton:
+
+                Toast.makeText(this, "Add checklist", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this, ChecklistListQRReaderActivity.class);
+                startActivityForResult(i, QR_REQUEST_CODE);
+                break;
+            default:
+                break;
+        }
     }
 
 
     @Override
-    public void onClick(View view) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (requestCode == QR_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                String result = data.getStringExtra("result");
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
+
+
+    private void requestPermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[] {Manifest.permission.CAMERA}, 1);
+            }
+        }
     }
 }
