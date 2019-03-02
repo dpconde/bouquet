@@ -1,5 +1,6 @@
 package com.dpconde.taskexecutor.mvp.data.api;
 
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 
@@ -46,7 +47,17 @@ public interface TestDataManager {
      */
     void loadChecklists(ChecklistListCallback checklistListCallback);
 
+    /**
+     * Load checklist
+     * @param checklistListCallback
+     * @return
+     */
+    Checklist loadChecklist(ChecklistListCallback checklistListCallback, long checklistID);
 
-
-
+    /**
+     * Method to save Checklist
+     * @param checklist
+     * @return
+     */
+    Checklist saveChecklist(Checklist checklist);
 }

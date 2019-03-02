@@ -3,13 +3,15 @@ package com.dpconde.taskexecutor.mvp.view.tasklist;
 import android.content.Context;
 
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
+import com.dpconde.taskexecutor.mvp.data.model.Task;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 
 /**
  * Created by dpconde on 28/9/18.
  */
 
-public class UserDetailPresenter {
+public class TaskListPresenter {
 
     //Dependencies
     private View view;
@@ -18,7 +20,7 @@ public class UserDetailPresenter {
 
     private User currentUser;
 
-    public UserDetailPresenter(UserDetailPresenter.View view, TestDataManager userDataManager, Context context) {
+    public TaskListPresenter(TaskListPresenter.View view, TestDataManager userDataManager, Context context) {
         this.view = view;
         this.userDataManager = userDataManager;
         this.context = context;
@@ -34,6 +36,15 @@ public class UserDetailPresenter {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void onItemClicked(Task task) {
+    }
+
+    public Checklist getChecklistById(Long checklistId) {
+        Checklist checklist = userDataManager.loadChecklist(null, checklistId);
+
+        return checklist;
     }
 
 

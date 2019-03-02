@@ -1,5 +1,6 @@
 package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
@@ -42,6 +43,16 @@ public class TestDataManagerRetrofit implements TestDataManager {
     @Override
     public void loadChecklists(ChecklistListCallback checklistListCallback) {
 
+    }
+
+    @Override
+    public Checklist loadChecklist(ChecklistListCallback checklistListCallback, long checklistID) {
+        return null;
+    }
+
+    @Override
+    public Checklist saveChecklist(Checklist checklist) {
+        return null;
     }
 
 

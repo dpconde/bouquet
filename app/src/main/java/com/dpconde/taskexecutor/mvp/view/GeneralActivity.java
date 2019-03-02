@@ -21,11 +21,14 @@ import androidx.appcompat.widget.Toolbar;
 
 public class GeneralActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    public Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get toolbar component
+        toolbar = findViewById(R.id.my_toolbar);
     }
 
     @Override
@@ -34,9 +37,6 @@ public class GeneralActivity extends AppCompatActivity {
     }
 
     protected void addDrawer(){
-
-        //Get toolbar component
-        toolbar = findViewById(R.id.my_toolbar);
 
         // Create the AccountHeader
         AccountHeader headerResult = new AccountHeaderBuilder()

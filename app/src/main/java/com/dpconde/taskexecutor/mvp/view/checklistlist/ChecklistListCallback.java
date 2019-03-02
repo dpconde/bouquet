@@ -12,8 +12,14 @@ import java.util.List;
 public interface ChecklistListCallback {
 
     /**
-     * Method to manage retrieved users
+     * Method to manage retrieved checklists
      * @param checklistList
      */
-    void onRetrievedChecklist(List<Checklist> checklistList);
+    void onRetrievedChecklists(List<Checklist> checklistList);
+
+    /**
+     * Method to manage retrieved checklist
+     * @param checklist
+     */
+    void onRetrievedChecklist(Checklist checklist);
 }

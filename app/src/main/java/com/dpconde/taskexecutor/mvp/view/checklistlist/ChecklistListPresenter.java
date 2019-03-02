@@ -47,17 +47,21 @@ public class ChecklistListPresenter implements ChecklistListCallback {
         context.startActivity(intent);
     }
 
+    public void readChecklist(long checklistID){
+        testDataManagerJson.loadChecklist(this, checklistID);
+    }
+
     @Override
-    public void onRetrievedChecklist(List<Checklist> checklistList) {
+    public void onRetrievedChecklists(List<Checklist> checklistList) {
         view.refreshChecklistList(checklistList);
         view.hideProgress();
     }
 
-    public void readChecklist(){
-        testDataManagerJson.loadTasks(this);
+    @Override
+    public void onRetrievedChecklist(Checklist checklist) {
+        testDataManagerDB.saveChecklist(checklist);
+        testDataManagerDB.loadChecklists(this);
     }
-
-
 
 
 

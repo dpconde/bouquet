@@ -12,6 +12,8 @@
       "name":"Task type general name",
       "description": "Task type general description",
       "value":"",
+      "order": 1,
+      "depth": 0,
       "parentTask": null,
       "data":{
         
@@ -23,6 +25,8 @@
       "name":"Task type container name",
       "description": "Task type container description",
       "parentTask": null,
+      "order": 2,
+      "depth": 0,
       "data":{
         
       }
@@ -33,6 +37,8 @@
       "name":"Task type checklist name",
       "description": "Task type checklist description",
       "parentTask": 456343,
+      "depth": 1,
+      "order": 3,
       "data":{
         "checklistTasks":[
             {
@@ -100,6 +106,8 @@
         "name":"Task type general name",
         "description": "Task type general description",
         "parentTask": 456343,
+        "depth": 1,
+        "order": 4,
         "data":{
 
         }
@@ -110,6 +118,8 @@
         "name":"Task type camera name",
         "description": "Task type camera description",
         "parentTask": null,
+        "order": 5,
+        "depth": 0,
         "data":{
           "engineeringComment" : "This is an engineering comment",
           "technicianComment" : ""

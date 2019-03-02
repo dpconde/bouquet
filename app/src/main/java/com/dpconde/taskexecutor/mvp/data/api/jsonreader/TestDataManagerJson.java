@@ -39,21 +39,7 @@ public class TestDataManagerJson implements TestDataManager {
 
     @Override
     public void loadTasks(ChecklistListCallback checklistListCallback) {
-        try {
-            InputStream inputStream = context.getResources().openRawResource(R.raw.checklist);
-            byte[] bytes = new byte[inputStream.available()];
-            inputStream.read(bytes, 0, bytes.length);
-            String json = new String(bytes);
 
-            //Json to Properties
-            JsonObject jsonObject = gson.fromJson( json, JsonObject.class);
-
-            Checklist checklist = parseJsonChecklist(jsonObject);
-
-
-        } catch (IOException e) {
-
-        }
     }
 
 
@@ -76,10 +62,10 @@ public class TestDataManagerJson implements TestDataManager {
             int type = task.get("type").getAsInt();
 
             switch(type) {
-                case 1: //General Task
+                case 1: //GeneralViewHolder Task
                     tasks.add(parseGeneralTask(task, id));
                     break;
-                case 2: //Container Task
+                case 2: //ContainerViewHolder Task
                     tasks.add(parseContainerTask(task, id));
                     break;
                 case 3: //Checklist Task
@@ -104,19 +90,44 @@ public class TestDataManagerJson implements TestDataManager {
     }
 
     private ChecklistTask parseChecklistTask(JsonObject jsonChecklistTask, long checklistId){
-        return null;
+        ChecklistTask checklistTask = new ChecklistTask();
+        this.parseCommonFields(checklistTask, jsonChecklistTask, checklistId);
+        return checklistTask;
     }
 
     private GeneralTask parseGeneralTask(JsonObject jsonGeneralTask, long checklistId){
-        return null;
+        GeneralTask generalTask = new GeneralTask();
+        this.parseCommonFields(generalTask, jsonGeneralTask, checklistId);
+        return generalTask;
     }
 
     private PictureTask parsePictureTask(JsonObject jsonPictureTask, long checklistId){
-        return null;
+        PictureTask pictureTask = new PictureTask();
+        this.parseCommonFields(pictureTask, jsonPictureTask, checklistId);
+        return pictureTask;
     }
 
     private ContainerTask parseContainerTask(JsonObject jsonContainerTask, long checklistId){
-        return null;
+        ContainerTask containerTask = new ContainerTask();
+        this.parseCommonFields(containerTask, jsonContainerTask, checklistId);
+        return containerTask;
+    }
+
+    private Task parseCommonFields(Task task, JsonObject jsonTask, long checklistId){
+
+        task.setId(jsonTask.get("id").getAsLong());
+        task.setType(jsonTask.get("type").getAsInt());
+        task.setDescription(jsonTask.get("description").getAsString());
+        task.setDepth(jsonTask.get("depth").getAsInt());
+
+        if(!jsonTask.get("parentTask").isJsonNull()){
+            task.setParentTaskId(jsonTask.get("parentTask").getAsLong());
+        }
+
+        task.setOrder(jsonTask.get("order").getAsInt());
+        task.setChecklistId(checklistId);
+
+        return task;
     }
 
 
@@ -138,5 +149,37 @@ public class TestDataManagerJson implements TestDataManager {
     @Override
     public void loadChecklists(ChecklistListCallback checklistListCallback) {
 
+    }
+
+    @Override
+    public Checklist loadChecklist(ChecklistListCallback checklistListCallback, long checklistID) {
+
+        Checklist checklist = null;
+
+        try {
+            InputStream inputStream = context.getResources().openRawResource(R.raw.checklist);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, bytes.length);
+            String json = new String(bytes);
+
+            //Json to Properties
+            JsonObject jsonObject = gson.fromJson( json, JsonObject.class);
+
+            checklist = parseJsonChecklist(jsonObject);
+
+            if(checklistListCallback != null){
+                checklistListCallback.onRetrievedChecklist(checklist);
+            }
+
+        } catch (IOException e) {
+
+        }
+
+        return checklist;
+    }
+
+    @Override
+    public Checklist saveChecklist(Checklist checklist) {
+        return null;
     }
 }

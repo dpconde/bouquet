@@ -20,7 +20,7 @@ public class Task implements Parcelable {
 
     @Id
     private long id;
-    private String type;
+    private int type;
     private String description;
     private Date executionDate;
     private String executionStatus;
@@ -28,6 +28,7 @@ public class Task implements Parcelable {
     private long checklistId;
     private long parentTaskId;
     private int order;
+    private int depth;
 
 
     @ToOne(joinProperty = "executorId")
@@ -38,10 +39,10 @@ public class Task implements Parcelable {
     protected Task(Parcel in) {
     }
 
-    @Generated(hash = 524954813)
-    public Task(long id, String type, String description, Date executionDate,
+    @Generated(hash = 199292349)
+    public Task(long id, int type, String description, Date executionDate,
             String executionStatus, String syncStatus, long checklistId, long parentTaskId,
-            int order, Long executorId) {
+            int order, int depth, Long executorId) {
         this.id = id;
         this.type = type;
         this.description = description;
@@ -51,6 +52,7 @@ public class Task implements Parcelable {
         this.checklistId = checklistId;
         this.parentTaskId = parentTaskId;
         this.order = order;
+        this.depth = depth;
         this.executorId = executorId;
     }
 
@@ -67,55 +69,6 @@ public class Task implements Parcelable {
         return 0;
     }
 
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getExecutionDate() {
-        return this.executionDate;
-    }
-
-    public void setExecutionDate(Date executionDate) {
-        this.executionDate = executionDate;
-    }
-
-
-
-    public String getSyncStatus() {
-        return this.syncStatus;
-    }
-
-    public void setSyncStatus(String syncStatus) {
-        this.syncStatus = syncStatus;
-    }
-
-    public Long getExecutorId() {
-        return this.executorId;
-    }
-
-    public void setExecutorId(Long executorId) {
-        this.executorId = executorId;
-    }
 
     /** To-one relationship, resolved on first access. */
     @Generated(hash = 1793016427)
@@ -182,12 +135,53 @@ public class Task implements Parcelable {
         myDao.update(this);
     }
 
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getType() {
+        return this.type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getExecutionDate() {
+        return this.executionDate;
+    }
+
+    public void setExecutionDate(Date executionDate) {
+        this.executionDate = executionDate;
+    }
+
     public String getExecutionStatus() {
         return this.executionStatus;
     }
 
     public void setExecutionStatus(String executionStatus) {
         this.executionStatus = executionStatus;
+    }
+
+    public String getSyncStatus() {
+        return this.syncStatus;
+    }
+
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
     }
 
     public long getChecklistId() {
@@ -212,6 +206,22 @@ public class Task implements Parcelable {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public Long getExecutorId() {
+        return this.executorId;
+    }
+
+    public void setExecutorId(Long executorId) {
+        this.executorId = executorId;
+    }
+
+    public int getDepth() {
+        return this.depth;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
 
     /** called by internal mechanisms, do not call yourself. */

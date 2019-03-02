@@ -3,7 +3,7 @@ package com.dpconde.taskexecutor.di.component;
 import com.dpconde.taskexecutor.di.module.view.TaskListModule;
 import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListActivity;
 import com.dpconde.taskexecutor.di.module.TaskModule;
-import com.dpconde.taskexecutor.mvp.view.tasklist.UserDetailPresenter;
+import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListPresenter;
 
 import javax.inject.Singleton;
 
@@ -18,5 +18,5 @@ import dagger.Component;
 public interface TaskListComponent {
 
     void inject(TaskListActivity taskListActivity);
-    UserDetailPresenter getDetailPresenter();
+    TaskListPresenter getDetailPresenter();
 }

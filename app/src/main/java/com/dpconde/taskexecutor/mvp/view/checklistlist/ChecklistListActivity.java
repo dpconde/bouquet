@@ -50,9 +50,9 @@ public class ChecklistListActivity extends GeneralActivity implements ChecklistL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setupComponent(UserListApplication.getApp().component());
         setContentView(R.layout.activity_checklist_list);
+        super.onCreate(savedInstanceState);
         initViews();
         setupRecyclerView();
         requestPermissions();
@@ -152,7 +152,8 @@ public class ChecklistListActivity extends GeneralActivity implements ChecklistL
             if(resultCode == Activity.RESULT_OK){
                 String result = data.getStringExtra("result");
 
-                presenter.readChecklist();
+               // presenter.readChecklist(Long.parseLong(result));
+                presenter.readChecklist(1L);
 
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }

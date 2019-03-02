@@ -61,7 +61,24 @@ public class TestDataManagerGreenDAO implements TestDataManager {
             }
         }
 
-        checklistListCallback.onRetrievedChecklist(checklistList);
+        checklistListCallback.onRetrievedChecklists(checklistList);
+    }
 
+    @Override
+    public Checklist loadChecklist(ChecklistListCallback checklistListCallback, long checklistID) {
+        checklistID = 129343L;
+        return daoSession.getChecklistDao().load(checklistID);
+    }
+
+    @Override
+    public Checklist saveChecklist(Checklist checklist){
+        Long checklistID = daoSession.getChecklistDao().insert(checklist);
+
+        for(Task task: checklist.getTasks()){
+            task.setChecklistId(checklistID);
+            daoSession.getTaskDao().insert(task);
+        }
+
+        return checklist;
     }
 }

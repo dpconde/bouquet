@@ -13,32 +13,38 @@ import com.dpconde.taskexecutor.di.component.AppComponent;
 import com.dpconde.taskexecutor.di.component.DaggerTaskListComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.TaskListModule;
+import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.User;
+import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
 
 
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class TaskListActivity extends AppCompatActivity implements UserDetailPresenter.View, View.OnClickListener {
+public class TaskListActivity extends GeneralActivity implements TaskListPresenter.View, View.OnClickListener {
 
     @Inject
-    UserDetailPresenter presenter;
+    TaskListPresenter presenter;
 
     //Views
-    private TextView location, inputFirstName, inputLastName;
-    private ImageView imageView;
-    private Button deleteUserButton;
+    private RecyclerView recyclerView;
+    private TaskListAdapter adapter;
+
+    //Current checklist
+    private Checklist currentChecklist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setupComponent(UserListApplication.getApp().component());
-        setContentView(R.layout.activity_user_detail);
+        setContentView(R.layout.activity_task_list);
+        super.onCreate(savedInstanceState);
 
         //Get user from DB
-        //Long currentUserId = getIntent().getLongExtra("userIntent", 0L);
-        //presenter.getUserFromUserId(currentUserId);
+        Long currentUserId = getIntent().getLongExtra("checklistIntent", 0L);
+        currentChecklist = presenter.getChecklistById(currentUserId);
 
         initViews();
         loadViews(presenter.getCurrentUser());
@@ -64,12 +70,15 @@ public class TaskListActivity extends AppCompatActivity implements UserDetailPre
      */
     private void initViews() {
 
-        inputFirstName = findViewById(R.id.inputUserFirstName);
-        inputLastName = findViewById(R.id.inputUserLastName);
-        location = findViewById(R.id.userDetailLocationValue);
-        imageView = findViewById(R.id.userDetailImage);
-        deleteUserButton = findViewById(R.id.deleteUser);
-        deleteUserButton.setOnClickListener(this);
+        recyclerView = findViewById(R.id.task_list);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        //Toolbar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     /**
@@ -77,22 +86,14 @@ public class TaskListActivity extends AppCompatActivity implements UserDetailPre
      * @param user
      */
     private void loadViews(User user){
-       // inputFirstName.setText(user.getName().getFirst());
-       // inputLastName.setText(user.getName().getLast());
-       // location.setText(user.getLocation().toString());
-       // Picasso.get().load(user.getPicture().getLarge()).into(imageView);
+        adapter = new TaskListAdapter(presenter, currentChecklist.getTasks(), this);
+        recyclerView.setAdapter(adapter);
     }
 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.deleteUser:
-               // presenter.deleteUser();
-                break;
-            default:
-                break;
-        }
+
     }
 
     @Override
