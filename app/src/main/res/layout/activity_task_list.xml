@@ -9,12 +9,228 @@
 
     <include layout="@layout/activity_toolbar"/>
 
-   <RelativeLayout
+   <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="130dp"
-       android:background="@color/colorPrimaryLight"
-       android:layout_margin="8dp">
-   </RelativeLayout>
+       android:background="@color/md_grey_100"
+       android:padding="8dp"
+       android:orientation="horizontal"
+       >
+
+       <ImageView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="2"
+           android:src="@drawable/checklist_img"
+           android:scaleType="fitCenter"/>
+
+       <LinearLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="16"
+           android:layout_marginStart="16dp"
+           android:orientation="horizontal">
+
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_ID"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="ID"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_ID"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="ID value"/>
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_project"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="Project"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_project"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Project value"/>
+                   </LinearLayout>
+               </LinearLayout>
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_WO"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="Working Order"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_WO"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Working Order value"/>
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_description"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="Description"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_description"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Description value"/>
+                   </LinearLayout>
+               </LinearLayout>
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_samples"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="Samples"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_samples"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Samples value"/>
+
+                   </LinearLayout>
+
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"
+                   android:gravity="center_vertical"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/checklist_label_progress"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textStyle="bold"
+                           android:text="Progress"/>
+
+                       <TextView
+                           android:id="@+id/checklist_value_progress"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Progress value"/>
+                   </LinearLayout>
+               </LinearLayout>
+           </LinearLayout>
+       </LinearLayout>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryLight"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/task_list"

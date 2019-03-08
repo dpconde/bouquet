@@ -10,13 +10,25 @@ import com.dpconde.taskexecutor.mvp.data.model.User;
 public interface LoginCallback {
 
     /**
-     * Method to manage user login success
+     * Method to manage user login online success
      * @param user
      */
-    void onDoLoginSuccess(User user);
+    void onOnlineLoginSuccess(User user);
 
     /**
-     * Method to manage user login fail
+     * Method to manage user login offline success
+     * @param user
      */
-    void onDoLoginFail();
+    void onOfflineLoginSuccess(User user);
+
+    /**
+     * Method to manage user login online fail
+     */
+    void onOnlineLoginFail(User user);
+
+    /**
+     * Method to manage user login offline fail
+     */
+    void onOfflineLoginFail(User user);
+
 }

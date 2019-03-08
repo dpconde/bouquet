@@ -5,4 +5,5 @@
     <color name="colorAccent">#fc6500</color>
     <color name="colorPrimaryLight">#e2d5d0</color>
     <color name="colorPrimaryLighter">#f5f1ef</color>
+    <color name="colorAccentLight">#ffc299</color>
 </resources>

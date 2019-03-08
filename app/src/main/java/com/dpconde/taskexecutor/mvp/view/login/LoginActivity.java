@@ -107,7 +107,7 @@ public class LoginActivity extends GeneralActivity implements LoginPresenter.Vie
                 String userCode = userCodeField.getText().toString();
                 String password = passwordField.getText().toString();
 
-                presenter.doLogin(userCode, password);
+                presenter.doOnlineLogin(userCode, password);
 
                 break;
             default:

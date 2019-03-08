@@ -21,25 +21,8 @@ import static org.junit.Assert.*;
 public class ExampleUnitTask {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
 
 
-        User user;
-        List<User> userList = new ArrayList<>();
-        for(int i = 0; i<10; i++){
-            user = new User();
-            user.setEmail("user"+i+"@gmail.com");
-            user.setUserCode("AT015421"+i);
-            user.setPassword("password"+i);
-            user.setId((long)i);
-            userList.add(user);
-        }
-
-        Gson gson = new Gson();
-        Type listOfTestObject = new TypeToken<List<User>>(){}.getType();
-        String s = gson.toJson(userList, listOfTestObject);
-
-       int a = 0;
 
 
     }

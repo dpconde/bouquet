@@ -1,12 +1,19 @@
 package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
+import android.util.Base64;
+
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.ResponseDTO;
+import com.dpconde.taskexecutor.mvp.data.model.LoginParams;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 import com.dpconde.taskexecutor.mvp.view.login.LoginCallback;
-import com.google.common.hash.Hashing;
 
-import java.nio.charset.StandardCharsets;
+import java.io.UnsupportedEncodingException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -15,32 +22,43 @@ import java.nio.charset.StandardCharsets;
 public class UserManagerRetrofit implements UserManager {
 
     private LoginApi loginApi;
-    private UserManager userManagerDB;
 
     public UserManagerRetrofit(LoginApi loginApi) {
         this.loginApi = loginApi;
     }
 
     @Override
-    public void doLogin(String userCode, String password, LoginCallback callback) {
+    public void doLogin(final String userCode, final String password, final LoginCallback callback) {
 
-        //TODO Obtener le usuario de la API, si va bien, lo guarda en DB, si no, mostrar error.
+        //Create Login Params object
+        LoginParams lp = new LoginParams();
+        lp.setUsername(toBase64(userCode));
+        lp.setPassword(toBase64(password));
+        lp.setService(toBase64("https://intranetdev.idiada.com/verema-ws/")); //TODO meterlo en un properties
 
-        //Encrypt password to save it in the database
-        String encryptedPassword = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();
-
-        //TODO delete
-        User user = new User();
-        user.setPassword(encryptedPassword);
+        //Create response user
+        final User user = new User();
         user.setUserCode(userCode);
-        user.setEmail("dpconde.me@gmail.com");
+        user.setPassword(password);
 
-        //Save user in DataBase
-        User userCreated = userManagerDB.createUser(user);
+        Call<ResponseDTO> repos = loginApi.login(lp);
+        repos.enqueue(new Callback<ResponseDTO>() {
+              @Override
+              public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
+                  ResponseDTO loginResponse = response.body();
 
-        callback.onDoLoginSuccess(userCreated);
+                  if(loginResponse.getErrors().isEmpty()){
+                      callback.onOnlineLoginSuccess(user);
+                  }else {
+                      callback.onOnlineLoginFail(user);
+                  }
+              }
+
+            @Override
+            public void onFailure(Call<ResponseDTO> call, Throwable t) {
+                callback.onOnlineLoginFail(user);
+            }
+        });
 
     }
 
@@ -63,7 +81,19 @@ public class UserManagerRetrofit implements UserManager {
         return null;
     }
 
-    public void setUserManagerDB(UserManager userManagerDB) {
-        this.userManagerDB = userManagerDB;
+
+    /**
+     * Convert String to BASE64
+     * @param value
+     * @return
+     */
+    private String toBase64(String value){
+        byte[] data = new byte[0];
+        try {
+            data = value.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return Base64.encodeToString(data, Base64.DEFAULT);
     }
 }

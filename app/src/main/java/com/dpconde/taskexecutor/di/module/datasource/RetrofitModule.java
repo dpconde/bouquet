@@ -33,7 +33,7 @@ public class RetrofitModule {
     @Named("login")
     public Retrofit retrofitLogin(GsonConverterFactory gsonConverterFactory){
         return new Retrofit.Builder()
-                .baseUrl("https://intranet.idiada.com/verema-ws/service/casWS/")
+                .baseUrl("https://intranetdev.idiada.com/verema-ws/service/casWS/")
                 .addConverterFactory(gsonConverterFactory)
                 .build();
     }

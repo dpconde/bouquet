@@ -2,13 +2,10 @@ package com.dpconde.taskexecutor.di.module;
 
 import com.dpconde.taskexecutor.di.module.datasource.GreenDAOModule;
 import com.dpconde.taskexecutor.di.module.datasource.RetrofitModule;
-import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
-import com.dpconde.taskexecutor.mvp.data.api.greendao.TestDataManagerGreenDAO;
 import com.dpconde.taskexecutor.mvp.data.api.greendao.UserManagerGreenDAO;
 import com.dpconde.taskexecutor.mvp.data.api.jsonreader.UserManagerJson;
 import com.dpconde.taskexecutor.mvp.data.api.retrofit.LoginApi;
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.TestDataManagerRetrofit;
 import com.dpconde.taskexecutor.mvp.data.api.retrofit.UserManagerRetrofit;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
 
@@ -30,8 +27,8 @@ public class UserModule {
     @Provides
     @Named("db")
     @Singleton
-    UserManager provideUserManagerDB(@Named("api") UserManager userManagerAPI, DaoSession daoSession){
-        return new UserManagerGreenDAO(daoSession, userManagerAPI);
+    UserManager provideUserManagerDB(DaoSession daoSession){
+        return new UserManagerGreenDAO(daoSession);
     }
 
 

@@ -1,10 +1,14 @@
 package com.dpconde.taskexecutor.mvp.view.tasklist;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.dpconde.taskexecutor.R;
@@ -14,13 +18,17 @@ import com.dpconde.taskexecutor.di.component.DaggerTaskListComponent;
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.TaskListModule;
 import com.dpconde.taskexecutor.mvp.data.model.Checklist;
+import com.dpconde.taskexecutor.mvp.data.model.Task;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
+import com.dpconde.taskexecutor.mvp.view.tasklist.dialogs.TaskListFilterDialog;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +43,10 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
 
     //Current checklist
     private Checklist currentChecklist;
+    private List<Task> taskList = new ArrayList<>();
+
+    //Filtering dialog
+    TaskListFilterDialog filteringDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +54,13 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
         setContentView(R.layout.activity_task_list);
         super.onCreate(savedInstanceState);
 
-        //Get user from DB
+        //Get checklist from DB
         Long currentUserId = getIntent().getLongExtra("checklistIntent", 0L);
         currentChecklist = presenter.getChecklistById(currentUserId);
+        taskList.addAll(currentChecklist.getTasks());
 
         initViews();
-        loadViews(presenter.getCurrentUser());
+        loadViews();
     }
 
 
@@ -83,11 +96,57 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
 
     /**
      * Load views content for the given user
-     * @param user
      */
-    private void loadViews(User user){
-        adapter = new TaskListAdapter(presenter, currentChecklist.getTasks(), this);
+    private void loadViews(){
+        adapter = new TaskListAdapter(presenter, taskList, this);
         recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void refreshList(List<Task> taskList){
+        this.taskList.addAll(taskList);
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Add menu
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_task_list, menu);
+        return true;
+    }
+
+    /**
+     * Manage menu items selection
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.task_filter_menu_option:
+                Toast.makeText(this, "Empezamos a filtrar", Toast.LENGTH_SHORT).show();
+
+                List<String> types = new ArrayList<>();
+                types.add("All");
+                types.add("Checklist");
+                types.add("General");
+
+                FragmentManager ft = getFragmentManager();
+                if(filteringDialog == null){
+                    filteringDialog = TaskListFilterDialog.newInstance(this,
+                            new HashMap<String, String>(), types, presenter);
+                }
+                filteringDialog.show(ft, "dialog");
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -95,6 +154,8 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
     public void onClick(View view) {
 
     }
+
+
 
     @Override
     public void showMessage(String message) {

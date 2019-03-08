@@ -21,5 +21,30 @@
     <string name="login_password">Password</string>
     <string name="login_login_button">Login</string>
 
+    <array name="activity_task_list_filtering_status_options">
+        <item name="all">All</item>
+        <item name="done">Done</item>
+        <item name="undone">Undone</item>
+    </array>
+
+    <array name="activity_task_list_filtering_sync_options">
+        <item name="all">All</item>
+        <item name="sync">Sync</item>
+        <item name="unsync">Unsync</item>
+    </array>
+
+    <array name="activity_task_list_filtering_types_options">
+        <item name="all">All</item>
+        <item name="General">General</item>
+        <item name="Instrumentation">Instrumentation</item>
+        <item name="Checklist">Checklist</item>
+        <item name="Brakes">Brakes</item>
+        <item name="Steering_ratio">Steering Ratio</item>
+        <item name="Dynamic">Dynamic</item>
+        <item name="Weight">Weight</item>
+        <item name="Misuse_static">Misuse static</item>
+        <item name="Misuse_dynamic">Misuse dynamic</item>
+    </array>
+
 
 </resources>

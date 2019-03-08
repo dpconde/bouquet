@@ -1,6 +1,5 @@
 package com.dpconde.taskexecutor.mvp.data.api.greendao;
 
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.UserManagerRetrofit;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
@@ -20,11 +19,9 @@ public class UserManagerGreenDAO implements UserManager {
 
 
     private DaoSession daoSession;
-    private UserManager userManagerAPI;
 
-    public UserManagerGreenDAO(DaoSession daoSession, UserManager userManagerAPI) {
+    public UserManagerGreenDAO(DaoSession daoSession) {
         this.daoSession = daoSession;
-        this.userManagerAPI = userManagerAPI;
     }
 
 
@@ -45,7 +42,15 @@ public class UserManagerGreenDAO implements UserManager {
 
     @Override
     public User createUser(User user) {
-        Long userId = daoSession.insert(user);
+
+        //Encrypt password
+        String encryptedPassword = Hashing.sha256()
+                .hashString(user.getPassword(), StandardCharsets.UTF_8)
+                .toString();
+
+        user.setPassword(encryptedPassword);
+
+        Long userId = daoSession.insertOrReplace(user);
         user.setId(userId);
 
         return user;
@@ -60,9 +65,8 @@ public class UserManagerGreenDAO implements UserManager {
 
         if(user == null){
 
-            //User not found, we call API to get user
-            ((UserManagerRetrofit)userManagerAPI).setUserManagerDB(this);
-            userManagerAPI.doLogin(userCode, password, callback);
+            //User not found, error
+            callback.onOfflineLoginFail(null);
 
         }else{
 
@@ -72,15 +76,21 @@ public class UserManagerGreenDAO implements UserManager {
                     .toString();
 
             //If password matches, then login success
-            if(user.getPassword().equals(encryptedPassword)){
-                callback.onDoLoginSuccess(user);
+            if(user.getPassword().equals(encryptedPassword)
+                    || user.getPassword().equals(password)){
+                callback.onOfflineLoginSuccess(user);
             }else{
-                callback.onDoLoginFail(); //TODO add message
+                callback.onOfflineLoginFail(null);
             }
 
         }
     }
 
+    /**
+     * Method to retrieve user by its userCode
+     * @param userCode
+     * @return
+     */
     private User getUserByUserCode(String userCode){
 
         List<User> users = daoSession.getUserDao().queryBuilder()

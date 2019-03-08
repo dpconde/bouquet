@@ -33,8 +33,10 @@ public class LoginModule {
 
     @Provides
     public LoginPresenter providePresenter(LoginPresenter.View loginView,
-                                                   Context context, @Named("db") UserManager userManagerDB) {
-        return new LoginPresenter(loginView, context, userManagerDB);
+                                           Context context,
+                                           @Named("api") UserManager userManagerAPI,
+                                           @Named("db") UserManager userManagerDB) {
+        return new LoginPresenter(loginView, context, userManagerAPI, userManagerDB);
     }
 
 }

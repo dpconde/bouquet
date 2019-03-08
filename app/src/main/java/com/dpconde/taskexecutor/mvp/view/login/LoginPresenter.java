@@ -3,13 +3,9 @@ package com.dpconde.taskexecutor.mvp.view.login;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
-import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.User;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity;
-
-import java.util.List;
 
 /**
  * Created by dpconde on 28/9/18.
@@ -23,12 +19,14 @@ public class LoginPresenter implements LoginCallback {
 
     //Business
     private UserManager userManagerDB;
+    private UserManager userManagerAPI;
 
 
-    public LoginPresenter(View view, Context context, UserManager userManagerDB) {
+    public LoginPresenter(View view, Context context, UserManager userManagerAPI, UserManager userManagerDB) {
         this.view = view;
         this.context = context;
         this.userManagerDB = userManagerDB;
+        this.userManagerAPI = userManagerAPI;
     }
 
 
@@ -43,24 +41,48 @@ public class LoginPresenter implements LoginCallback {
 
 
     /**
-     * Read userCode and Password fields and try to do login
+     * Read userCode and Password fields and try to do login online
      * @param userCode
      * @param password
      */
-    public void doLogin(String userCode, String password){
+    public void doOnlineLogin(String userCode, String password){
+        userManagerAPI.doLogin(userCode, password, this);
+    }
 
-        //Try to do login locally
+
+    /**
+     * Read userCode and Password fields and try to do login offline
+     * @param userCode
+     * @param password
+     */
+    public void doOfflineLogin(String userCode, String password){
         userManagerDB.doLogin(userCode, password, this);
     }
 
     @Override
-    public void onDoLoginSuccess(User user) {
+    public void onOnlineLoginSuccess(User user) {
+        User userSaved = userManagerDB.createUser(user);
+
+        if(userSaved != null){
+            doOfflineLogin(user.getUserCode(), user.getPassword());
+        }
+
+    }
+
+    @Override
+    public void onOfflineLoginSuccess(User user) {
         startChecklistListActivity(user);
     }
 
     @Override
-    public void onDoLoginFail() {
+    public void onOnlineLoginFail(User user) {
+        doOfflineLogin(user.getUserCode(), user.getPassword());
 
+    }
+
+    @Override
+    public void onOfflineLoginFail(User user) {
+        //TODO show message
     }
 
 
