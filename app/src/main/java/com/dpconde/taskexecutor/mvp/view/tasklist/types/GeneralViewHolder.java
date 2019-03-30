@@ -45,9 +45,9 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bindData(Task task){
+    public void bindData(Task task, boolean filtersApplied){
         description.setText(task.getDescription());
-        taskType.setText(String.valueOf(task.getType()));
+        taskType.setText(String.valueOf(task.getTaskType().getDescription()));
 
         final float scale = context.getResources().getDisplayMetrics().density;
         int pixels = (int) (LEVEL_WIDTH * task.getDepth() * scale + 0.5f);
@@ -55,8 +55,9 @@ public class GeneralViewHolder extends RecyclerView.ViewHolder {
         ViewGroup.LayoutParams params = levelsContainer.getLayoutParams();
 
         // Changes the height and width to the specified *pixels*
-        params.width = pixels;
+        params.width = filtersApplied ? 0 : pixels;
         levelsContainer.setLayoutParams(params);
+
 
         //TODO cambiar el color dependiendo del estado de la tarea
 

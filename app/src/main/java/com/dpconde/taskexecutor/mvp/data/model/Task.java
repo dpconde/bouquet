@@ -20,7 +20,6 @@ public class Task implements Parcelable {
 
     @Id
     private long id;
-    private int type;
     private String description;
     private Date executionDate;
     private String executionStatus;
@@ -34,17 +33,22 @@ public class Task implements Parcelable {
     @ToOne(joinProperty = "executorId")
     private User executor;
     private Long executorId;
+
+    @ToOne(joinProperty = "taskTypeId")
+    private TaskType taskType;
+    private Long taskTypeId;
     
 
     protected Task(Parcel in) {
     }
 
-    @Generated(hash = 199292349)
-    public Task(long id, int type, String description, Date executionDate,
-            String executionStatus, String syncStatus, long checklistId, long parentTaskId,
-            int order, int depth, Long executorId) {
+
+    @Generated(hash = 1519386493)
+    public Task(long id, String description, Date executionDate,
+            String executionStatus, String syncStatus, long checklistId,
+            long parentTaskId, int order, int depth, Long executorId,
+            Long taskTypeId) {
         this.id = id;
-        this.type = type;
         this.description = description;
         this.executionDate = executionDate;
         this.executionStatus = executionStatus;
@@ -54,11 +58,14 @@ public class Task implements Parcelable {
         this.order = order;
         this.depth = depth;
         this.executorId = executorId;
+        this.taskTypeId = taskTypeId;
     }
+
 
     @Generated(hash = 733837707)
     public Task() {
     }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -67,6 +74,116 @@ public class Task implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+
+    public long getId() {
+        return this.id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+    public String getDescription() {
+        return this.description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Date getExecutionDate() {
+        return this.executionDate;
+    }
+
+
+    public void setExecutionDate(Date executionDate) {
+        this.executionDate = executionDate;
+    }
+
+
+    public String getExecutionStatus() {
+        return this.executionStatus;
+    }
+
+
+    public void setExecutionStatus(String executionStatus) {
+        this.executionStatus = executionStatus;
+    }
+
+
+    public String getSyncStatus() {
+        return this.syncStatus;
+    }
+
+
+    public void setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+    }
+
+
+    public long getChecklistId() {
+        return this.checklistId;
+    }
+
+
+    public void setChecklistId(long checklistId) {
+        this.checklistId = checklistId;
+    }
+
+
+    public long getParentTaskId() {
+        return this.parentTaskId;
+    }
+
+
+    public void setParentTaskId(long parentTaskId) {
+        this.parentTaskId = parentTaskId;
+    }
+
+
+    public int getOrder() {
+        return this.order;
+    }
+
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+
+    public int getDepth() {
+        return this.depth;
+    }
+
+
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+
+    public Long getExecutorId() {
+        return this.executorId;
+    }
+
+
+    public void setExecutorId(Long executorId) {
+        this.executorId = executorId;
+    }
+
+
+    public Long getTaskTypeId() {
+        return this.taskTypeId;
+    }
+
+
+    public void setTaskTypeId(Long taskTypeId) {
+        this.taskTypeId = taskTypeId;
     }
 
 
@@ -89,6 +206,7 @@ public class Task implements Parcelable {
         return executor;
     }
 
+
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 545454505)
     public void setExecutor(User executor) {
@@ -98,6 +216,38 @@ public class Task implements Parcelable {
             executor__resolvedKey = executorId;
         }
     }
+
+
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 1212221738)
+    public TaskType getTaskType() {
+        Long __key = this.taskTypeId;
+        if (taskType__resolvedKey == null || !taskType__resolvedKey.equals(__key)) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            TaskTypeDao targetDao = daoSession.getTaskTypeDao();
+            TaskType taskTypeNew = targetDao.load(__key);
+            synchronized (this) {
+                taskType = taskTypeNew;
+                taskType__resolvedKey = __key;
+            }
+        }
+        return taskType;
+    }
+
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1758672895)
+    public void setTaskType(TaskType taskType) {
+        synchronized (this) {
+            this.taskType = taskType;
+            taskTypeId = taskType == null ? null : taskType.getId();
+            taskType__resolvedKey = taskTypeId;
+        }
+    }
+
 
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
@@ -111,6 +261,7 @@ public class Task implements Parcelable {
         myDao.delete(this);
     }
 
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
      * Entity must attached to an entity context.
@@ -122,6 +273,7 @@ public class Task implements Parcelable {
         }
         myDao.refresh(this);
     }
+
 
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
@@ -136,100 +288,15 @@ public class Task implements Parcelable {
     }
 
 
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getType() {
-        return this.type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getExecutionDate() {
-        return this.executionDate;
-    }
-
-    public void setExecutionDate(Date executionDate) {
-        this.executionDate = executionDate;
-    }
-
-    public String getExecutionStatus() {
-        return this.executionStatus;
-    }
-
-    public void setExecutionStatus(String executionStatus) {
-        this.executionStatus = executionStatus;
-    }
-
-    public String getSyncStatus() {
-        return this.syncStatus;
-    }
-
-    public void setSyncStatus(String syncStatus) {
-        this.syncStatus = syncStatus;
-    }
-
-    public long getChecklistId() {
-        return this.checklistId;
-    }
-
-    public void setChecklistId(long checklistId) {
-        this.checklistId = checklistId;
-    }
-
-    public long getParentTaskId() {
-        return this.parentTaskId;
-    }
-
-    public void setParentTaskId(long parentTaskId) {
-        this.parentTaskId = parentTaskId;
-    }
-
-    public int getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public Long getExecutorId() {
-        return this.executorId;
-    }
-
-    public void setExecutorId(Long executorId) {
-        this.executorId = executorId;
-    }
-
-    public int getDepth() {
-        return this.depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
-    }
-
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1442741304)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getTaskDao() : null;
     }
+
+
+
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
         @Override
@@ -250,6 +317,9 @@ public class Task implements Parcelable {
     private transient TaskDao myDao;
     @Generated(hash = 719827570)
     private transient Long executor__resolvedKey;
+    @Generated(hash = 414322750)
+    private transient Long taskType__resolvedKey;
+
 
 
 }

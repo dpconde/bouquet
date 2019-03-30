@@ -5,7 +5,7 @@
     <item
         android:id="@+id/task_filter_menu_option"
         android:title="Filter"
-        android:icon="@drawable/ic_filter_active"
+        android:icon="@drawable/ic_filter_inactive"
         app:showAsAction="always"
         />
 

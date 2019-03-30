@@ -1,11 +1,11 @@
-package com.dpconde.taskexecutor.di.module.view;
+package com.dpconde.taskexecutor.di.module.view.tasks;
 
 import android.content.Context;
 
 import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.DataProviderModule;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
-import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListPresenter;
+import com.dpconde.taskexecutor.mvp.view.task.misuse.MisusePresenter;
 
 import javax.inject.Named;
 
@@ -17,24 +17,24 @@ import dagger.Provides;
  */
 
 @Module(includes = {DataProviderModule.class, ContextModule.class})
-public class TaskListModule {
+public class MisuseTaskModule {
 
-    private TaskListPresenter.View view;
+    private MisusePresenter.View view;
 
-    public TaskListModule(TaskListPresenter.View view) {
+    public MisuseTaskModule(MisusePresenter.View view) {
         this.view = view;
     }
 
     @Provides
-    public TaskListPresenter.View provideView() {
+    public MisusePresenter.View provideView() {
         return view;
     }
 
     @Provides
-    public TaskListPresenter providePresenter(TaskListPresenter.View categoryView,
-                                              @Named("db") TestDataManager userDataManager,
+    public MisusePresenter providePresenter(MisusePresenter.View categoryView,
+                                              @Named("db") TestDataManager dataManager,
                                               Context context) {
-        return new TaskListPresenter(categoryView, userDataManager, context);
+        return new MisusePresenter(categoryView, context, dataManager);
     }
 
 }

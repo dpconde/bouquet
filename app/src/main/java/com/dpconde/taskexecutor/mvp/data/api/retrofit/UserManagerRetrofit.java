@@ -2,7 +2,7 @@ package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
 import android.util.Base64;
 
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.ResponseDTO;
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.login.ResponseDTO;
 import com.dpconde.taskexecutor.mvp.data.model.LoginParams;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
@@ -34,7 +34,7 @@ public class UserManagerRetrofit implements UserManager {
         LoginParams lp = new LoginParams();
         lp.setUsername(toBase64(userCode));
         lp.setPassword(toBase64(password));
-        lp.setService(toBase64("https://intranetdev.idiada.com/verema-ws/")); //TODO meterlo en un properties
+        lp.setService(toBase64("https://intranet.idiada.com/verema-ws/")); //TODO meterlo en un properties
 
         //Create response user
         final User user = new User();

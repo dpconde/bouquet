@@ -9,7 +9,6 @@ import android.view.View;
 
 public class ContainerViewHolder extends GeneralViewHolder{
 
-
     public ContainerViewHolder(View itemView, Context context) {
         super(itemView, context);
     }

@@ -1,14 +1,10 @@
 package com.dpconde.taskexecutor.mvp.view.tasklist;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.dpconde.taskexecutor.R;
@@ -19,7 +15,7 @@ import com.dpconde.taskexecutor.di.module.ContextModule;
 import com.dpconde.taskexecutor.di.module.view.TaskListModule;
 import com.dpconde.taskexecutor.mvp.data.model.Checklist;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
-import com.dpconde.taskexecutor.mvp.data.model.User;
+import com.dpconde.taskexecutor.mvp.data.model.TaskType;
 import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
 import com.dpconde.taskexecutor.mvp.view.tasklist.dialogs.TaskListFilterDialog;
 
@@ -29,6 +25,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +45,9 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
     //Filtering dialog
     TaskListFilterDialog filteringDialog;
 
+    //Menu
+    Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setupComponent(UserListApplication.getApp().component());
@@ -56,8 +56,9 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
 
         //Get checklist from DB
         Long currentUserId = getIntent().getLongExtra("checklistIntent", 0L);
+        presenter.setCurrentChecklistId(currentUserId);
         currentChecklist = presenter.getChecklistById(currentUserId);
-        taskList.addAll(currentChecklist.getTasks());
+        taskList.addAll(presenter.getFirstLevelTasks(currentChecklist.getId()));
 
         initViews();
         loadViews();
@@ -104,9 +105,20 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
 
 
     @Override
-    public void refreshList(List<Task> taskList){
+    public void refreshList(List<Task> taskList, boolean withFilters){
+        adapter.setFiltersApplied(withFilters);
+        this.taskList.clear();
         this.taskList.addAll(taskList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void changeFilteringIcon(boolean filtering) {
+        if(filtering){
+            ((MenuBuilder) menu).getActionItems().get(0).setIcon(R.drawable.ic_filter_active);
+        }else{
+            ((MenuBuilder) menu).getActionItems().get(0).setIcon(R.drawable.ic_filter_inactive);
+        }
     }
 
     /**
@@ -117,6 +129,7 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_task_list, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -129,17 +142,19 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.task_filter_menu_option:
-                Toast.makeText(this, "Empezamos a filtrar", Toast.LENGTH_SHORT).show();
 
-                List<String> types = new ArrayList<>();
-                types.add("All");
-                types.add("Checklist");
-                types.add("General");
+                List<TaskType> types = presenter.getTaskTypesByChecklistId();
+
+                //Add all types option
+                TaskType allTypes = new TaskType();
+                allTypes.setId(-1);
+                allTypes.setDescription("All");
+                types.add(0, allTypes);
 
                 FragmentManager ft = getFragmentManager();
                 if(filteringDialog == null){
                     filteringDialog = TaskListFilterDialog.newInstance(this,
-                            new HashMap<String, String>(), types, presenter);
+                            new HashMap<String, Object>(), types, presenter);
                 }
                 filteringDialog.show(ft, "dialog");
 
@@ -154,8 +169,6 @@ public class TaskListActivity extends GeneralActivity implements TaskListPresent
     public void onClick(View view) {
 
     }
-
-
 
     @Override
     public void showMessage(String message) {

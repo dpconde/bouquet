@@ -29,6 +29,6 @@ public interface LoginCallback {
     /**
      * Method to manage user login offline fail
      */
-    void onOfflineLoginFail(User user);
+    void onOfflineLoginFail(int errorMessage);
 
 }

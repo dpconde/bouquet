@@ -2,7 +2,7 @@ package com.dpconde.taskexecutor.di.component;
 
 import com.dpconde.taskexecutor.di.module.view.ChecklistListModule;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity;
-import com.dpconde.taskexecutor.di.module.TaskModule;
+import com.dpconde.taskexecutor.di.module.DataProviderModule;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListPresenter;
 
 import javax.inject.Singleton;
@@ -14,7 +14,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {TaskModule.class, ChecklistListModule.class}, dependencies = {AppComponent.class})
+@Component(modules = {DataProviderModule.class, ChecklistListModule.class}, dependencies = {AppComponent.class})
 public interface ChecklistListComponent {
 
     void inject(ChecklistListActivity checklistListActivity);

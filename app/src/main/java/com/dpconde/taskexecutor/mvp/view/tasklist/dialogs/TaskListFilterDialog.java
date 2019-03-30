@@ -7,17 +7,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.dpconde.taskexecutor.R;
+import com.dpconde.taskexecutor.mvp.Constants;
+import com.dpconde.taskexecutor.mvp.data.model.TaskType;
 import com.dpconde.taskexecutor.mvp.view.tasklist.TaskListPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,30 +28,30 @@ import androidx.appcompat.app.AlertDialog;
 
 public class TaskListFilterDialog extends DialogFragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
 
-
-    private final String STATUS_FILTER_KEY = "STATUS_FILTER_KEY";
-    private final String SYNC_FILTER_KEY = "SYNC_FILTER_KEY";
-    private final String TYPE_FILTER_KEY = "TYPE_FILTER_KEY";
-    private Map<String, String> currentFilters;
+    private Map<String, Object> currentFilters;
 
     private RadioButton statusAll, statusDone, statusUndone, syncAll, syncSync, syncNotSync;
     private Spinner types;
-    private List<String> testTypes;
+    private List<TaskType> taskTypes;
+    private TaskTypeSpinnerAdapter taskTypesAdapter;
 
     private Context context;
     private TaskListPresenter presenter;
 
-    public static TaskListFilterDialog newInstance(Context context, Map<String, String> currentFilters,
-                                                   List<String> testTypes, TaskListPresenter presenter) {
+
+    public static TaskListFilterDialog newInstance(Context context, Map<String, Object> currentFilters,
+            List<TaskType> taskTypes, TaskListPresenter presenter) {
 
         TaskListFilterDialog dialog = new TaskListFilterDialog();
+        dialog.taskTypes = taskTypes;
         dialog.currentFilters = currentFilters;
-        dialog.testTypes = testTypes;
         dialog.context = context;
         dialog.presenter = presenter;
 
         return dialog;
     }
+
+
 
 
     @Override
@@ -78,9 +77,9 @@ public class TaskListFilterDialog extends DialogFragment implements CompoundButt
         syncNotSync.setOnCheckedChangeListener(this);
 
         types = view.findViewById(R.id.task_filter_types_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, testTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        types.setAdapter(adapter);
+        taskTypesAdapter = new TaskTypeSpinnerAdapter(context, android.R.layout.simple_spinner_item, taskTypes);
+        taskTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        types.setAdapter(taskTypesAdapter);
         types.setOnItemSelectedListener(this);
 
         builder.setView(view)
@@ -97,7 +96,42 @@ public class TaskListFilterDialog extends DialogFragment implements CompoundButt
                     }
                 });
 
+
         return builder.create();
+    }
+
+    private void setCurrentFilters(Map<String, Object> currentFilters) {
+        if(currentFilters.containsKey(Constants.STATUS_FILTER_KEY)){
+            if(currentFilters.get(Constants.STATUS_FILTER_KEY).equals("all")){
+                statusAll.setChecked(true);
+            }else if(currentFilters.get(Constants.STATUS_FILTER_KEY).equals("done")){
+                statusDone.setChecked(true);
+            }else if(currentFilters.get(Constants.STATUS_FILTER_KEY).equals("undone")){
+                statusUndone.setChecked(true);
+            }
+
+        }
+
+        if(currentFilters.containsKey(Constants.SYNC_FILTER_KEY)){
+            if(currentFilters.get(Constants.SYNC_FILTER_KEY).equals("all")){
+                syncAll.setChecked(true);
+            }else if(currentFilters.get(Constants.SYNC_FILTER_KEY).equals("sync")){
+                syncSync.setChecked(true);
+            }else if(currentFilters.get(Constants.SYNC_FILTER_KEY).equals("notsync")){
+                syncNotSync.setChecked(true);
+            }
+
+        }
+
+        if(currentFilters.containsKey(Constants.TYPE_FILTER_KEY)){
+            TaskType taskType = (TaskType) currentFilters.get(Constants.TYPE_FILTER_KEY);
+            if(taskType.getId() == -1L){
+                types.setSelection(0);
+            }else{
+                types.setSelection(taskTypesAdapter.getPosition(taskType));
+                currentFilters.put(Constants.TYPE_FILTER_KEY, taskType);
+            }
+        }
     }
 
     @Override
@@ -106,37 +140,37 @@ public class TaskListFilterDialog extends DialogFragment implements CompoundButt
         switch(compoundButton.getId()) {
             case R.id.radio_status_all:
                 if (checked){
-                    currentFilters.put(STATUS_FILTER_KEY, "all");
+                    currentFilters.put(Constants.STATUS_FILTER_KEY, "all");
                 }
                 break;
 
             case R.id.radio_status_done:
                 if (checked){
-                    currentFilters.put(STATUS_FILTER_KEY, "done");
+                    currentFilters.put(Constants.STATUS_FILTER_KEY, "done");
                 }
                 break;
 
             case R.id.radio_status_undone:
                 if (checked){
-                    currentFilters.put(STATUS_FILTER_KEY, "undone");
+                    currentFilters.put(Constants.STATUS_FILTER_KEY, "undone");
                 }
                 break;
 
             case R.id.radio_sync_all:
                 if (checked){
-                    currentFilters.put(SYNC_FILTER_KEY, "all");
+                    currentFilters.put(Constants.SYNC_FILTER_KEY, "all");
                 }
                 break;
 
             case R.id.radio_status_sync:
                 if (checked){
-                    currentFilters.put(SYNC_FILTER_KEY, "sync");
+                    currentFilters.put(Constants.SYNC_FILTER_KEY, "sync");
                 }
                 break;
 
             case R.id.radio_status_not_sync:
                 if (checked){
-                    currentFilters.put(SYNC_FILTER_KEY, "notsync");
+                    currentFilters.put(Constants.SYNC_FILTER_KEY, "notsync");
                 }
                 break;
 
@@ -146,11 +180,26 @@ public class TaskListFilterDialog extends DialogFragment implements CompoundButt
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+        TaskType selectedTaskType = (TaskType) adapterView.getAdapter().getItem(i);
+        currentFilters.put(Constants.TYPE_FILTER_KEY, selectedTaskType);
+
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        this.setCurrentFilters(currentFilters);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog){
+        super.onDismiss(dialog);
+        presenter.updateFilteringMenuIcon(currentFilters);
     }
 }
 

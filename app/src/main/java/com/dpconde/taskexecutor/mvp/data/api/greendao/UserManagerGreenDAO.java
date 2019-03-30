@@ -1,5 +1,6 @@
 package com.dpconde.taskexecutor.mvp.data.api.greendao;
 
+import com.dpconde.taskexecutor.R;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.data.model.DaoSession;
@@ -66,7 +67,7 @@ public class UserManagerGreenDAO implements UserManager {
         if(user == null){
 
             //User not found, error
-            callback.onOfflineLoginFail(null);
+            callback.onOfflineLoginFail(R.string.login_message_login_fail_user_offline);
 
         }else{
 
@@ -80,7 +81,7 @@ public class UserManagerGreenDAO implements UserManager {
                     || user.getPassword().equals(password)){
                 callback.onOfflineLoginSuccess(user);
             }else{
-                callback.onOfflineLoginFail(null);
+                callback.onOfflineLoginFail(R.string.login_message_login_fail_password);
             }
 
         }

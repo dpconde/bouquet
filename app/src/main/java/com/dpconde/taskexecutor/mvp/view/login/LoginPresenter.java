@@ -46,6 +46,7 @@ public class LoginPresenter implements LoginCallback {
      * @param password
      */
     public void doOnlineLogin(String userCode, String password){
+        view.showLoading();
         userManagerAPI.doLogin(userCode, password, this);
     }
 
@@ -71,18 +72,21 @@ public class LoginPresenter implements LoginCallback {
 
     @Override
     public void onOfflineLoginSuccess(User user) {
+        view.hideLoading();
         startChecklistListActivity(user);
     }
 
     @Override
     public void onOnlineLoginFail(User user) {
+        view.hideLoading();
         doOfflineLogin(user.getUserCode(), user.getPassword());
 
     }
 
     @Override
-    public void onOfflineLoginFail(User user) {
-        //TODO show message
+    public void onOfflineLoginFail(int errorMessage) {
+        view.hideLoading();
+        view.showMessage(errorMessage);
     }
 
 
@@ -91,27 +95,18 @@ public class LoginPresenter implements LoginCallback {
         /**
          * Show loading image and hide user list
          */
-        void showProgress();
+        void showLoading();
 
         /**
          * Hide loading image and show user list
          */
-        void hideProgress();
+        void hideLoading();
 
         /**
-         * Show error message. Red Color
+         * Show message
+         * @param messageResource
          */
-        void showErrorMessage(String message);
-
-        /**
-         * Show warning message. Yellow Color
-         */
-        void showWarningMessage(String message);
-
-        /**
-         * Show info message. Green Color
-         */
-        void showInfoMessage(String message);
+        void showMessage(int messageResource);
 
     }
 }

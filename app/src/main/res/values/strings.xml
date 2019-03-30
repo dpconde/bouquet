@@ -20,6 +20,9 @@
     <string name="login_user_code">User code</string>
     <string name="login_password">Password</string>
     <string name="login_login_button">Login</string>
+    <string name="login_message_login_fail_user_offline">Login failed. Check credentials and connectivity and try again.</string>
+    <string name="login_message_login_fail_password">Login failed. Wrong password.</string>
+
 
     <array name="activity_task_list_filtering_status_options">
         <item name="all">All</item>
@@ -45,6 +48,48 @@
         <item name="Misuse_static">Misuse static</item>
         <item name="Misuse_dynamic">Misuse dynamic</item>
     </array>
+
+
+    <!-- Misuse Task Activity -->
+    <string name="misuse_task_test_definition">Test definition</string>
+    <string name="misuse_task_test_name">Test name: </string>
+    <string name="misuse_task_original_test">Original test:</string>
+    <string name="misuse_task_idiada_test">IDIADA test:</string>
+    <string name="misuse_task_speed">Speed:</string>
+    <string name="misuse_task_brake">Brake:</string>
+    <string name="misuse_task_weight">Weight:</string>
+    <string name="misuse_task_tyre">Tyre:</string>
+    <string name="misuse_task_tyre_pressure">Tyre pressure:</string>
+    <string name="misuse_task_remarks">Remarks:</string>
+    <string name="misuse_task_before_test">Before test</string>
+    <string name="misuse_task_photos">Photos</string>
+    <string name="misuse_task_after_test">After test</string>
+    <string name="misuse_task_execution_date">Execution date</string>
+    <string name="misuse_task_driver">Driver</string>
+    <string name="misuse_task_srs_activation">SRS activation</string>
+    <string name="misuse_task_srs_modules_activated">SRS modules activated</string>
+    <string name="misuse_task_damages">Damages</string>
+    <string name="misuse_task_replaced_parts">Replaced parts</string>
+    <string name="misuse_task_repaired_parts">Repaired parts</string>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Place holders -->
+    <string name="app_placeholder_short">Placeholder</string>
+    <string name="app_placeholder_medium">This is just a placeholder</string>
+    <string name="app_placeholder_large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="app_yes">Yes</string>
+    <string name="app_no">No</string>
+
+
 
 
 </resources>

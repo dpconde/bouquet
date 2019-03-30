@@ -1,7 +1,7 @@
 package com.dpconde.taskexecutor.di.component;
 
+import com.dpconde.taskexecutor.di.module.DataProviderModule;
 import com.dpconde.taskexecutor.di.module.view.ChecklistListModule;
-import com.dpconde.taskexecutor.di.module.TaskModule;
 import com.dpconde.taskexecutor.di.module.view.LoginModule;
 import com.dpconde.taskexecutor.mvp.view.login.LoginActivity;
 import com.dpconde.taskexecutor.mvp.view.login.LoginPresenter;
@@ -15,7 +15,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {LoginModule.class, TaskModule.class, ChecklistListModule.class}, dependencies = {AppComponent.class})
+@Component(modules = {LoginModule.class, DataProviderModule.class, ChecklistListModule.class}, dependencies = {AppComponent.class})
 public interface LoginComponent {
 
     void inject(LoginActivity loginActivity);

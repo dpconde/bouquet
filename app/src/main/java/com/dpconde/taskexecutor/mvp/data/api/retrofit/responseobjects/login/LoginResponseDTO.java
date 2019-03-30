@@ -1,4 +1,4 @@
-package com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects;
+package com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.login;
 
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.Checklist;

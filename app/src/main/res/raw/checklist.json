@@ -8,7 +8,10 @@
   "tasks": [
     {
       "id": 456342,
-      "type": 1,
+      "type": {
+        "id": 2,
+        "description": "General"
+      },
       "name":"Task type general name",
       "description": "Task type general description",
       "value":"",
@@ -21,7 +24,10 @@
     },
     {
       "id": 456343,
-      "type": 2,
+      "type": {
+        "id": 1,
+        "description": "Container"
+      },
       "name":"Task type container name",
       "description": "Task type container description",
       "parentTask": null,
@@ -32,13 +38,46 @@
       }
     },
     {
+      "id": 456674,
+      "type": {
+        "id": 1,
+        "description": "Container"
+      },
+      "name":"Task type container name",
+      "description": "Task type container description",
+      "parentTask": 456343,
+      "order": 3,
+      "depth": 1,
+      "data":{
+
+      }
+    },
+    {
+      "id": 459846,
+      "type": {
+        "id": 2,
+        "description": "General"
+      },
+      "name":"Task type general name",
+      "description": "Task type general description",
+      "parentTask": 456674,
+      "depth": 2,
+      "order": 4,
+      "data":{
+
+      }
+    },
+    {
       "id": 456344,
-      "type": 3,
+      "type": {
+        "id": 3,
+        "description": "Checklist"
+      },
       "name":"Task type checklist name",
       "description": "Task type checklist description",
       "parentTask": 456343,
       "depth": 1,
-      "order": 3,
+      "order": 5,
       "data":{
         "checklistTasks":[
             {
@@ -102,23 +141,29 @@
     },
     {
         "id": 456345,
-        "type": 1,
+        "type": {
+          "id": 2,
+          "description": "General"
+        },
         "name":"Task type general name",
         "description": "Task type general description",
         "parentTask": 456343,
         "depth": 1,
-        "order": 4,
+        "order": 6,
         "data":{
 
         }
     },
     {
         "id": 456346,
-        "type": 4,
+        "type": {
+          "id": 4,
+          "description": "Camera"
+        },
         "name":"Task type camera name",
         "description": "Task type camera description",
         "parentTask": null,
-        "order": 5,
+        "order": 7,
         "depth": 0,
         "data":{
           "engineeringComment" : "This is an engineering comment",

@@ -1,6 +1,4 @@
-package com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects;
-
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.LoginResponseDTO;
+package com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.login;
 
 import java.util.List;
 

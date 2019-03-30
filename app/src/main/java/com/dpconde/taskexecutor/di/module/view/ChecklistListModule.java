@@ -3,7 +3,7 @@ package com.dpconde.taskexecutor.di.module.view;
 import android.content.Context;
 
 import com.dpconde.taskexecutor.di.module.ContextModule;
-import com.dpconde.taskexecutor.di.module.TaskModule;
+import com.dpconde.taskexecutor.di.module.DataProviderModule;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListPresenter;
 
@@ -16,7 +16,7 @@ import dagger.Provides;
  * Created by dpconde on 29/9/18.
  */
 
-@Module(includes = {TaskModule.class, ContextModule.class})
+@Module(includes = {DataProviderModule.class, ContextModule.class})
 public class ChecklistListModule {
 
     private ChecklistListPresenter.View view;

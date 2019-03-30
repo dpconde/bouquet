@@ -26,7 +26,7 @@ import dagger.Provides;
  */
 
 @Module(includes = {RetrofitModule.class, GreenDAOModule.class, ContextModule.class, GsonModule.class})
-public class TaskModule {
+public class DataProviderModule {
 
 
     @Provides

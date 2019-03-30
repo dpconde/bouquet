@@ -1,4 +1,4 @@
-package com.dpconde.taskexecutor.mvp.data.model.tasks;
+package com.dpconde.taskexecutor.mvp.data.model.tasks.general;
 
 import com.dpconde.taskexecutor.mvp.data.model.Task;
 

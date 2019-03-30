@@ -3,7 +3,6 @@ package com.dpconde.taskexecutor.di.module.view;
 import android.content.Context;
 
 import com.dpconde.taskexecutor.di.module.ContextModule;
-import com.dpconde.taskexecutor.di.module.TaskModule;
 import com.dpconde.taskexecutor.di.module.UserModule;
 import com.dpconde.taskexecutor.mvp.data.api.UserManager;
 import com.dpconde.taskexecutor.mvp.view.login.LoginPresenter;

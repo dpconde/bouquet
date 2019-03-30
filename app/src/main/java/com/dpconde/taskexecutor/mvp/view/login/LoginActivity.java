@@ -1,5 +1,6 @@
 package com.dpconde.taskexecutor.mvp.view.login;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.view.View;
@@ -15,6 +16,8 @@ import com.dpconde.taskexecutor.mvp.view.GeneralActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import javax.inject.Inject;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class LoginActivity extends GeneralActivity implements LoginPresenter.View, View.OnClickListener {
 
@@ -71,33 +74,6 @@ public class LoginActivity extends GeneralActivity implements LoginPresenter.Vie
 
 
     @Override
-    public void showProgress() {
-
-    }
-
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-
-    }
-
-    @Override
-    public void showWarningMessage(String message) {
-
-    }
-
-    @Override
-    public void showInfoMessage(String message) {
-
-    }
-
-
-    @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -114,4 +90,6 @@ public class LoginActivity extends GeneralActivity implements LoginPresenter.Vie
                 break;
         }
     }
+
+
 }

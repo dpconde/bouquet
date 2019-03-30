@@ -3,11 +3,13 @@ package com.dpconde.taskexecutor.mvp.data.api.jsonreader;
 import android.content.Context;
 
 import com.dpconde.taskexecutor.R;
+import com.dpconde.taskexecutor.mvp.Constants;
 import com.dpconde.taskexecutor.mvp.data.model.Checklist;
-import com.dpconde.taskexecutor.mvp.data.model.tasks.ChecklistTask;
-import com.dpconde.taskexecutor.mvp.data.model.tasks.ContainerTask;
-import com.dpconde.taskexecutor.mvp.data.model.tasks.GeneralTask;
-import com.dpconde.taskexecutor.mvp.data.model.tasks.PictureTask;
+import com.dpconde.taskexecutor.mvp.data.model.TaskType;
+import com.dpconde.taskexecutor.mvp.data.model.tasks.general.ChecklistTask;
+import com.dpconde.taskexecutor.mvp.data.model.tasks.general.ContainerTask;
+import com.dpconde.taskexecutor.mvp.data.model.tasks.general.GeneralTask;
+import com.dpconde.taskexecutor.mvp.data.model.tasks.general.PictureTask;
 import com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListCallback;
 import com.dpconde.taskexecutor.mvp.data.api.TestDataManager;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
@@ -59,19 +61,19 @@ public class TestDataManagerJson implements TestDataManager {
         JsonArray jsonTasks = jsonChecklist.getAsJsonArray("tasks");
         for(JsonElement jsonElement: jsonTasks){
             JsonObject task = jsonElement.getAsJsonObject();
-            int type = task.get("type").getAsInt();
+            int type = task.get("type").getAsJsonObject().get("id").getAsInt();
 
             switch(type) {
-                case 1: //GeneralViewHolder Task
+                case Constants.TASK_TYPE_GENERAL_ID: //GeneralViewHolder Task
                     tasks.add(parseGeneralTask(task, id));
                     break;
-                case 2: //ContainerViewHolder Task
+                case Constants.TASK_TYPE_CONTAINER_ID: //ContainerViewHolder Task
                     tasks.add(parseContainerTask(task, id));
                     break;
-                case 3: //Checklist Task
+                case Constants.TASK_TYPE_CHECKLIST_ID: //Checklist Task
                     tasks.add(parseChecklistTask(task, id));
                     break;
-                case 4: //Picture Task
+                case Constants.TASK_TYPE_PICTURE_ID: //Picture Task
                     tasks.add(parsePictureTask(task, id));
                     break;
                 default:
@@ -116,7 +118,14 @@ public class TestDataManagerJson implements TestDataManager {
     private Task parseCommonFields(Task task, JsonObject jsonTask, long checklistId){
 
         task.setId(jsonTask.get("id").getAsLong());
-        task.setType(jsonTask.get("type").getAsInt());
+
+        //Task type
+        JsonObject type = jsonTask.get("type").getAsJsonObject();
+        TaskType taskType = new TaskType();
+        taskType.setId(type.get("id").getAsLong());
+        taskType.setDescription(type.get("description").getAsString());
+        task.setTaskType(taskType);
+
         task.setDescription(jsonTask.get("description").getAsString());
         task.setDepth(jsonTask.get("depth").getAsInt());
 

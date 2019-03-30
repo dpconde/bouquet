@@ -1,6 +1,6 @@
 package com.dpconde.taskexecutor.mvp.data.api.retrofit;
 
-import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.ResponseDTO;
+import com.dpconde.taskexecutor.mvp.data.api.retrofit.responseobjects.login.ResponseDTO;
 import com.dpconde.taskexecutor.mvp.data.model.LoginParams;
 
 import retrofit2.Call;

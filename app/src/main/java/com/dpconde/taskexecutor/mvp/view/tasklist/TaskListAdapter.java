@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dpconde.taskexecutor.R;
+import com.dpconde.taskexecutor.mvp.Constants;
 import com.dpconde.taskexecutor.mvp.data.model.Task;
 import com.dpconde.taskexecutor.mvp.view.tasklist.types.ContainerViewHolder;
 import com.dpconde.taskexecutor.mvp.view.tasklist.types.GeneralViewHolder;
@@ -17,12 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int CONTAINER_TASK = 2;
-
-
     private TaskListPresenter presenter;
     private List<Task> taskList;
     private Context context;
+    private boolean filtersApplied = false;
 
     public TaskListAdapter(TaskListPresenter presenter, List<Task> taskList, Context context) {
         this.taskList = taskList;
@@ -34,8 +33,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         View itemView;
+
         switch (viewType){
-            case CONTAINER_TASK:
+            case Constants.TASK_TYPE_CONTAINER_VIEW_ID:
                 itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.task_list_item_container, viewGroup, false);
                 return new ContainerViewHolder(itemView, context);
 
@@ -52,15 +52,13 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         final Task task = taskList.get(position);
 
         if(task != null) {
-            switch (task.getType()) {
-                case CONTAINER_TASK:
-                    ((ContainerViewHolder) holder).bindData(task);
-                    break;
 
-                default:
-                    ((GeneralViewHolder) holder).bindData(task);
-                    break;
+            if(task.getTaskType().getId() == Constants.TASK_TYPE_CONTAINER_ID){
+                ((ContainerViewHolder) holder).bindData(task, filtersApplied);
+            }else{
+                ((GeneralViewHolder) holder).bindData(task, filtersApplied);
             }
+
 
             //Add click event listener
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +77,20 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        return taskList.get(position).getType();
+
+        if(taskList.get(position).getTaskType().getId() == Constants.TASK_TYPE_CONTAINER_ID){
+            return Constants.TASK_TYPE_CONTAINER_VIEW_ID;
+        }else if(taskList.get(position).getTaskType().getId() == Constants.TASK_TYPE_GENERAL_ID){
+            return Constants.TASK_TYPE_GENERAL_VIEW_ID;
+        }else if(taskList.get(position).getTaskType().getId() == Constants.TASK_TYPE_CHECKLIST_ID){
+            return Constants.TASK_TYPE_CHECKLIST_VIEW_ID;
+        }else{
+            return -1;
+        }
+
+    }
+
+    public void setFiltersApplied(boolean filtersApplied) {
+        this.filtersApplied = filtersApplied;
     }
 }
