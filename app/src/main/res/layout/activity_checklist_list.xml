@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity">
+    tools:context="com.dpconde.bouquet.mvp.view.checklistlist.ChecklistListActivity">
 
-    <include layout="@layout/activity_toolbar"/>
+    <include layout="@layout/activity_toolbar" />
 
     <LinearLayout
+        android:id="@+id/layout_checklists_available"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@id/my_toolbar"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/my_toolbar">
+        android:visibility="gone"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,51 +28,51 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
-                android:text="ID"/>
+                android:text="ID"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:textColor="@color/colorPrimary"
-                android:text="Description"/>
+                android:text="Description"
+                android:textColor="@color/colorPrimary" />
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimary"
-                android:text="Project"/>
+                android:text="Project"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:textColor="@color/colorPrimary"
-                android:text="Working Order"/>
+                android:text="Working Order"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimary"
-                android:text="Samples"/>
+                android:text="Samples"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColor="@color/colorPrimary"
-                android:text="Number of tests"/>
+                android:text="Number of tests"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
-                android:text="Status"/>
+                android:text="Status"
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 
@@ -78,10 +80,57 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="25dp" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/layout_no_checklists_available"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/my_toolbar"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="150dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:src="@drawable/no_test_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="28sp"
+                android:layout_gravity="center_horizontal"
+                android:text="You have no checklists yet" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/md_grey_600"
+                android:layout_gravity="center_horizontal"
+                android:text="Tap &quot;+&quot; button on bottom to add a new checklist"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -94,17 +143,16 @@
             android:id="@+id/progressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:text="@string/progressbar_text"/>
+            android:layout_centerHorizontal="true"
+            android:text="@string/progressbar_text" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/progressText"
-            />
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -115,8 +163,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_add_white"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_white" />
 
 
 </RelativeLayout>

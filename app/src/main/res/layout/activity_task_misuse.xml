@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.dpconde.taskexecutor.mvp.view.login.LoginActivity">
+    tools:context="com.dpconde.bouquet.mvp.view.login.LoginActivity">
 
 
     <ScrollView
@@ -31,7 +31,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="8dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryLighter"
+                    android:textColor="@color/md_white_1000"
                     android:gravity="center_vertical"
                     android:text="@string/misuse_task_test_definition" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="8dp"
+                android:elevation="2dp"
                 android:background="@drawable/my_rect"
                 android:padding="8dp">
 
@@ -286,7 +286,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:elevation="8dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/my_rect_primary">
 
@@ -296,7 +295,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="8dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryLighter"
+                    android:textColor="@color/md_white_1000"
                     android:gravity="center_vertical"
                     android:text="@string/misuse_task_before_test" />
 
@@ -309,6 +308,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/my_rect"
+                android:elevation="2dp"
                 android:padding="8dp">
 
                 <!-- Row 1 -->
@@ -351,7 +351,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:elevation="8dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/my_rect_primary">
 
@@ -361,7 +360,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="8dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryLighter"
+                    android:textColor="@color/md_white_1000"
                     android:gravity="center_vertical"
                     android:text="@string/misuse_task_after_test" />
 
@@ -372,6 +371,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:elevation="2dp"
                 android:background="@drawable/my_rect"
                 android:padding="8dp">
 

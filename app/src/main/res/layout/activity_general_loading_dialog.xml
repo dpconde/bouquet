@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/transparent"
-    tools:context="com.dpconde.taskexecutor.mvp.view.GeneralActivity">
+    tools:context="com.dpconde.bouquet.mvp.view.GeneralActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

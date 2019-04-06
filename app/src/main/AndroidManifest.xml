@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dpconde.taskexecutor">
+    package="com.dpconde.bouquet">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
-        android:name="com.dpconde.taskexecutor.UserListApplication"
+        android:name="com.dpconde.bouquet.UserListApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +19,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.dpconde.taskexecutor.mvp.view.login.LoginActivity"
+            android:name="com.dpconde.bouquet.mvp.view.login.LoginActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,19 +28,25 @@
         </activity>
 
         <activity
-            android:name="com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity"
+            android:name="com.dpconde.bouquet.mvp.view.checklistlist.ChecklistListActivity"
             android:label="@string/activity_user_detail">
         </activity>
 
         <activity
-            android:name="com.dpconde.taskexecutor.mvp.view.checklistlist.qrreader.ChecklistListQRReaderActivity"
+            android:name="com.dpconde.bouquet.mvp.view.checklistlist.qrreader.ChecklistListQRReaderActivity"
             android:label="@string/activity_user_detail">
         </activity>
 
         <activity
-            android:name="com.dpconde.taskexecutor.mvp.view.tasklist.TaskListActivity"
+            android:name="com.dpconde.bouquet.mvp.view.tasklist.TaskListActivity"
             android:label="@string/activity_user_detail"
-            android:parentActivityName="com.dpconde.taskexecutor.mvp.view.checklistlist.ChecklistListActivity">
+            android:parentActivityName="com.dpconde.bouquet.mvp.view.checklistlist.ChecklistListActivity">
+        </activity>
+
+        <activity
+            android:name="com.dpconde.bouquet.mvp.view.task.misuse.MisuseActivity"
+            android:label="@string/activity_user_detail"
+            android:parentActivityName="com.dpconde.bouquet.mvp.view.tasklist.TaskListActivity">
         </activity>
 
 

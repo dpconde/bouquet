@@ -24,6 +24,10 @@
     <string name="login_message_login_fail_password">Login failed. Wrong password.</string>
 
 
+    <!-- Checklist list Activity -->
+    <string name="checklist_list_menu_search">Search</string>
+
+
     <array name="activity_task_list_filtering_status_options">
         <item name="all">All</item>
         <item name="done">Done</item>

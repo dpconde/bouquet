@@ -169,6 +169,48 @@
           "engineeringComment" : "This is an engineering comment",
           "technicianComment" : ""
         }
+    },
+    {
+      "id": 456346,
+      "type": {
+        "id": 5,
+        "description": "Misuse Test"
+      },
+      "name":"Misuse Task test name",
+      "description": "Task type camera description",
+      "parentTask": null,
+      "order": 8,
+      "depth": 0,
+      "data":{
+        "testName" : "Misuse test name",
+        "originalTest" : "Misuse test original test",
+        "IDIADATest" : "Misuse test IDIADA test",
+        "speed" : "60",
+        "brake" : "Misuse test original test",
+        "weight" : "Misuse test original test",
+        "tyre" : "Misuse test original test",
+        "tyrePressure" : "Misuse test original test",
+        "remarks" : "Misuse test original test",
+        "driverList" :
+          [
+            {
+              "id": 4634,
+              "name": "Isidre Ferrando"
+            },
+            {
+              "id": 9434,
+              "name": "Oscar Durro"
+            },
+            {
+              "id": 5632,
+              "name": "David Perez"
+            },
+            {
+              "id": 1265,
+              "name": "Ela Amo"
+            }
+          ]
+      }
     }
   ]
 }

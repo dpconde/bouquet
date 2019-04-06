@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.dpconde.taskexecutor.mvp.view.tasklist.TaskListActivity"
+    tools:context="com.dpconde.bouquet.mvp.view.tasklist.TaskListActivity"
     android:id="@+id/task_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
